@@ -1,6 +1,9 @@
 <template>
   <div class="home">
-    <SideMenu />
+    <div class="layout-sidebar">
+      <SideMenu />
+    </div>
+    <img src="../assets/logo.svg"/>
     <HelloWorld msg="Hola mundo" />
   </div>
 </template>
@@ -18,3 +21,17 @@ import SideMenu from '../components/SideMenu.vue'
 })
 export default class Home extends Vue {}
 </script>
+
+<style lang="scss" scoped>
+.layout-sidebar {
+  position: fixed;
+  width: 300px;
+  height: calc(100vh - 9rem);
+  z-index: 1;
+  top: 7rem;
+  left: 2rem;
+  background-color: var(--surface-overlay);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+</style>
