@@ -16,7 +16,8 @@ export default {
   data () {
     return {
       items: [{ label: 'Home', icon: 'pi pi-home', to: '/' },
-        { label: 'crearEvento', icon: 'pi pi-calendar', to: '/crearEvento' },
+        { label: 'crear Evento', icon: 'pi pi-calendar-plus', to: '/crearEvento' },
+        { label: 'Encuentra un Evento', icon: 'pi pi-search', to: '/ConsultarEvento' },
         { label: 'About', icon: 'pi pi-info', to: '/About' }]
 =======
 export default {
