@@ -1,30 +1,22 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div>
+    <Toast />
+    <MegaMenu :model="items" />
+    <router-view />
   </div>
-  <router-view/>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+export default {
+  data () {
+    return {
+      items: [
+        { label: 'UNparche', to: '/' },
+        { label: 'Home', icon: 'pi pi-home', to: '/' },
+        { label: 'crearEvento', icon: 'pi pi-calendar', to: '/crearEvento' },
+        { label: 'About', icon: 'pi pi-info', to: '/About' }
+      ]
     }
   }
 }
-</style>
+</script>

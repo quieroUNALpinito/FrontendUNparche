@@ -1,5 +1,11 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
+import crearEvento from '../views/crearEvento.vue'
+import About from '../views/About.vue'
+import crearEventoBasicos from '../components/crearEventoBasicos.vue'
+import crearEventoConfiguracion from '../components/crearEventoConfiguracion.vue'
+import crearEventoUbicacion from '../components/crearEventoUbicacion.vue'
+import previewEvento from '../components/previewEvento.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -8,12 +14,32 @@ const routes: Array<RouteRecordRaw> = [
     component: Home
   },
   {
-    path: '/about',
+    path: '/crearEvento',
+    name: 'crearEvento',
+    component: crearEvento,
+    children: [
+      {
+        path: '',
+        component: crearEventoBasicos
+      },
+      {
+        path: 'configuracion',
+        component: crearEventoConfiguracion
+      },
+      {
+        path: 'ubicacion',
+        component: crearEventoUbicacion
+      },
+      {
+        path: 'confirmacion',
+        component: previewEvento
+      }
+    ]
+  },
+  {
+    path: '/About',
     name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: About
   }
 ]
 
