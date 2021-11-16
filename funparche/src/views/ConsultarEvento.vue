@@ -61,18 +61,18 @@ export default {
       value_time: null,
       lista: [
         {
-          Evento: 'Nombre del evento',
-          lugar: 'Lugar del evento',
+          Evento: 'Evento 1',
+          lugar: 'Lugar del evento 1',
           hora: 'hora de inicio'
         },
         {
-          Evento: 'Nombre del evento',
-          lugar: 'Lugar del evento',
+          Evento: 'Evento 2',
+          lugar: 'Lugar del evento 2',
           hora: 'hora de inicio'
         },
         {
-          Evento: 'Nombre del evento',
-          lugar: 'Lugar del evento',
+          Evento: 'Evento 3',
+          lugar: 'Lugar del evento 3',
           hora: 'hora de inicio'
         }
       ]
