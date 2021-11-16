@@ -9,7 +9,11 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+<<<<<<< HEAD
     "primeflex": "^3.1.0",
+=======
+    "primeflex": "^2.0.0",
+>>>>>>> feature/crearEvento
     "primeicons": "^5.0.0",
     "primevue": "^3.8.2",
     "register-service-worker": "^1.7.1",

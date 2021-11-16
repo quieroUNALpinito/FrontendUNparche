@@ -2,6 +2,13 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '../views/Home.vue'
 import crearEvento from '../views/crearEvento.vue'
 import About from '../views/About.vue'
+<<<<<<< HEAD
+=======
+import crearEventoBasicos from '../components/crearEventoBasicos.vue'
+import crearEventoConfiguracion from '../components/crearEventoConfiguracion.vue'
+import crearEventoUbicacion from '../components/crearEventoUbicacion.vue'
+import previewEvento from '../components/previewEvento.vue'
+>>>>>>> feature/crearEvento
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -12,7 +19,29 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/crearEvento',
     name: 'crearEvento',
+<<<<<<< HEAD
     component: crearEvento
+=======
+    component: crearEvento,
+    children: [
+      {
+        path: '',
+        component: crearEventoBasicos
+      },
+      {
+        path: 'configuracion',
+        component: crearEventoConfiguracion
+      },
+      {
+        path: 'ubicacion',
+        component: crearEventoUbicacion
+      },
+      {
+        path: 'confirmacion',
+        component: previewEvento
+      }
+    ]
+>>>>>>> feature/crearEvento
   },
   {
     path: '/About',
