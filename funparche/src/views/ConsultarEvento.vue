@@ -1,4 +1,5 @@
 <template>
+<div>
   <Card id="filtro">
     <template #title>
       <h2>Filters</h2>
@@ -18,8 +19,8 @@
             <h3>Time</h3>
           </template>
           <span>Escoge la hora libre o el rango de tiempo libre.</span><br />
-          <input type="time" />
-          <input type="time" />
+          <InputText type="time" />
+          <InputText type="time" />
         </AccordionTab>
         <AccordionTab>
           <template #header>
@@ -52,6 +53,7 @@
       </div>
     </template>
   </Card>
+  </div>
 </template>
 
 <script>

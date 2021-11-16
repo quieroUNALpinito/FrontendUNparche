@@ -12,15 +12,7 @@
     "bootstrap": "^4.5.2",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
-<<<<<<< HEAD
-<<<<<<< HEAD
-    "primeflex": "^3.1.0",
-=======
     "primeflex": "^2.0.0",
->>>>>>> feature/crearEvento
-=======
-    "primeflex": "^2.0.0",
->>>>>>> bfdc22628803334bec41edb951ade76c0768dd50
     "primeicons": "^5.0.0",
     "mutationobserver-shim": "^0.3.7",
     "popper.js": "^1.16.1",
@@ -30,7 +22,9 @@
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0",
     "vue-router": "^4.0.0-0",
-    "vue-svg-loader": "^0.16.0"
+    "vue-svg-loader": "^0.16.0",
+    "sass-loader": "^8.0.2",
+    "typescript": "~4.1.5"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.18.0",

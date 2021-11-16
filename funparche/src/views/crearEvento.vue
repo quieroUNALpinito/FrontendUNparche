@@ -1,9 +1,6 @@
 <template>
   <div>
     <h1>Nuevo Evento</h1>
-<<<<<<< HEAD
-    <Steps :model='items' />
-=======
     <Steps :model="items" />
     <Card class="p-m-2 p-shadow-5">
       <template #title> </template>
@@ -21,21 +18,10 @@
         </router-view>
       </template>
     </Card>
->>>>>>> feature/crearEvento
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD
-
-export default {
-  data () {
-    return {
-      items: [{ label: 'Home', icon: 'pi pi-home', to: '/' },
-        { label: 'crearEvento', icon: 'pi pi-calendar', to: '/crearEvento' },
-        { label: 'About', icon: 'pi pi-info', to: '/About' }]
-    }
-=======
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
@@ -71,7 +57,6 @@ export default {
       })
     }
     return { items, formObject, nextPage, prevPage, complete }
->>>>>>> feature/crearEvento
   }
 }
 </script>

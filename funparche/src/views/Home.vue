@@ -1,9 +1,11 @@
 <template>
-  <div class="home">
-    <div class="layout-sidebar">
+  <div class="p-grid">
+    <div class="p-col-3">
       <SideMenu />
     </div>
-    <img src="../assets/logo.svg"/>
+    <div class="p-col-9">
+      <img src="../assets/logo.svg" class="p-m-6 p-p-6"/>
+    </div>
   </div>
 </template>
 
@@ -18,17 +20,3 @@ import SideMenu from '../components/SideMenu.vue'
 })
 export default class Home extends Vue {}
 </script>
-
-<style lang="scss" scoped>
-.layout-sidebar {
-  position: fixed;
-  width: 300px;
-  height: calc(100vh - 9rem);
-  z-index: 1;
-  top: 7rem;
-  left: 2rem;
-  background-color: var(--surface-overlay);
-  border-radius: 12px;
-  padding: 1.5rem;
-}
-</style>
