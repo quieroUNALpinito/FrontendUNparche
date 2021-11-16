@@ -1,7 +1,7 @@
 <template>
   <div>
-    <MegaMenu :model="items" />
-    <router-view />
+    <h1>Nuevo Evento</h1>
+    <Steps :model='items' />
   </div>
 </template>
 

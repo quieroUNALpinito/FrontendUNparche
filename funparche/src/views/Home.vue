@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <div class="home">
     <div class="layout-sidebar">
       <SideMenu />
@@ -35,3 +36,9 @@ export default class Home extends Vue {}
   padding: 1.5rem;
 }
 </style>
+=======
+  <div>
+    <h1> Home </h1>
+  </div>
+</template>
+>>>>>>> feature/about
