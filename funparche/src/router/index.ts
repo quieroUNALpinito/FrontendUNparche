@@ -7,6 +7,7 @@ import crearEventoConfiguracion from '../components/crearEventoConfiguracion.vue
 import crearEventoUbicacion from '../components/crearEventoUbicacion.vue'
 import previewEvento from '../components/previewEvento.vue'
 import ConsultarEvento from '../views/ConsultarEvento.vue'
+import LogIn from '../views/LogIn.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -45,6 +46,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/consultarEvento',
     name: 'ConsultarEvento',
     component: ConsultarEvento
+  },
+  {
+    path: '/LogIn',
+    name: 'LogIn',
+    component: LogIn
   }
 ]
 
