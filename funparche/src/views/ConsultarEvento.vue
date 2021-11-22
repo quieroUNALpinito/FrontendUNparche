@@ -85,7 +85,7 @@ export default {
 
 <style lang="scss" scoped>
 #filtro {
-  width: 25%;
+  width: 20%;
   float: left;
 }
 </style>

@@ -1,7 +1,9 @@
 <template>
   <div>
     <h1>Nuevo Evento</h1>
-    <Steps :model="items" />
+    <!--
+    <Steps :model="itemssteps" />
+    -->
     <Card class="p-m-2 p-shadow-5">
       <template #title> </template>
       <template #content>
@@ -30,7 +32,7 @@ export default {
   setup () {
     const router = useRouter()
     const toast = useToast()
-    const items = ref([
+    const itemssteps = ref([
       { label: 'Basicos', to: '/' },
       { label: 'Configuracion', to: 'configuracion' },
       { label: 'Ubicacion', to: 'ubicacion' },
@@ -42,11 +44,11 @@ export default {
       for (const field in event.formData) {
         formObject.value[field] = event.formData[field]
       }
-      router.push(items.value[event.pageIndex + 1].to)
+      router.push(itemssteps.value[event.pageIndex + 1].to)
     }
 
     const prevPage = (event) => {
-      router.push(items.value[event.pageIndex - 1].to)
+      router.push(itemssteps.value[event.pageIndex - 1].to)
     }
 
     const complete = () => {
@@ -56,7 +58,7 @@ export default {
         detail: 'succesful'
       })
     }
-    return { items, formObject, nextPage, prevPage, complete }
+    return { itemssteps, formObject, nextPage, prevPage, complete }
   }
 }
 </script>

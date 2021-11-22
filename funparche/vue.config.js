@@ -9,5 +9,13 @@ module.exports = {
         additionalData: [...bootstrapSassAbstractsImports, ''].join(';\n')
       }
     }
-  }
+  },
+  devServer: {
+    disableHostCheck: true,
+    host: 'localhost',
+    port: 4000,
+    public: '0.0.0.0:4000',
+    https: false
+  },
+  publicPath: '/'
 }
