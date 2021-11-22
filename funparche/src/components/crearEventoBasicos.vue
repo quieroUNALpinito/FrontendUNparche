@@ -127,7 +127,7 @@ export default {
       console.log('cargando tipos de evento')
       axios
         .get('http://localhost:8080/api/eventos/tiposEvento')
-        .then(response => {
+        .then((response) => {
           console.log(response.data.data)
           this.tiposEvento = response.data.data
         })
@@ -138,6 +138,15 @@ export default {
     },
     siguiente: function () {
       console.log('enviando')
+      axios
+        .post('http://localhost:8080/api/eventos/crearEvento', {
+          asunto: this.asunto,
+          descripcion: this.descripcion,
+          tipoEvento: this.tipoEvento
+        })
+        .then((response) => {
+          console.log(response)
+        })
     }
   },
   mounted: function () {
