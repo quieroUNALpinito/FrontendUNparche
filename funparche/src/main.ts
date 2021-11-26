@@ -20,6 +20,7 @@ import Toast from 'primevue/toast'
 import Accordion from 'primevue/accordion'
 import AccordionTab from 'primevue/accordiontab'
 import Message from 'primevue/message'
+import InlineMessage from 'primevue/inlinemessage'
 
 const app = createApp(App)
 
@@ -36,6 +37,7 @@ app.component('Menu', Menu)
 app.component('Accordion', Accordion)
 app.component('AccordionTab', AccordionTab)
 app.component('Message', Message)
+app.component('InlineMessage', InlineMessage)
 
 app.use(router)
 app.use(ToastService)
