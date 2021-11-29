@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
+import './assets/styles/layout.scss'
 import 'primevue/resources/themes/vela-purple/theme.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
@@ -19,6 +20,8 @@ import Card from 'primevue/card'
 import Toast from 'primevue/toast'
 import Accordion from 'primevue/accordion'
 import AccordionTab from 'primevue/accordiontab'
+import Dropdown from 'primevue/dropdown'
+import Checkbox from 'primevue/checkbox'
 
 const app = createApp(App)
 
@@ -34,6 +37,8 @@ app.component('Toast', Toast)
 app.component('Menu', Menu)
 app.component('Accordion', Accordion)
 app.component('AccordionTab', AccordionTab)
+app.component('Dropdown', Dropdown)
+app.component('Checkbox', Checkbox)
 
 app.use(router)
 app.use(ToastService)

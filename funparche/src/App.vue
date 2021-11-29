@@ -14,6 +14,7 @@ export default {
         { label: 'UNparche', to: '/', icon: '/assets/logo.png' },
         { label: 'Crear Evento', icon: 'pi pi-calendar-plus', to: '/crearEvento' },
         { label: 'Consultar Evento', icon: 'pi pi-search', to: '/consultarEvento' },
+        { label: 'Crear Grupo', icon: 'pi pi-search', to: '/crearGrupo' },
         { label: 'About', icon: 'pi pi-info', to: '/About' }
       ]
     }
