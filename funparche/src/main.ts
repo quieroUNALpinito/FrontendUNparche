@@ -2,11 +2,11 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import './assets/styles/layout.scss'
 import 'primevue/resources/themes/vela-purple/theme.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 import 'primevue/resources/primevue.css'
+import './assets/styles/layout.scss'
 
 import PrimeVue from 'primevue/config'
 import Menu from 'primevue/menu'

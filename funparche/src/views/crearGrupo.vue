@@ -1,26 +1,26 @@
 <template>
-  <div class="grid">
-    <div class="col-12">
+  <div class="p-grid">
+    <div class="p-col-12">
       <div class="card">
         <h5>Crea tu propio grupo :)</h5>
-        <div class="p-fluid formgrid grid">
-          <div class="field col-12 md:col-6 p-1">
+        <div class="p-fluid p-formgrid p-grid">
+          <div class="p-field p-col-12 p-md-6">
             <label for="name">Nombre</label>
             <InputText id="name" type="text" />
           </div>
-          <div class="field col-12 md:col-6 p-1">
+          <div class="p-field p-col-12 p-md-6">
             <label for="grimage">Imagen del Grupo (URL)</label>
             <InputText id="grimage" type="text" />
           </div>
-          <div class="field col-12">
+          <div class="p-field p-col-12">
             <label for="description">Descripción</label>
             <TextArea id="description" rows="4" />
           </div>
-          <div class="field col-12 md:col-6 p-4">
-            <label for="caracter">Es un evento oficial?</label>
+          <div class="p-field-checkbox p-col-12 p-md-3">
             <Checkbox name="oficial" value="Oficial" v-model="cities" />
+            <label for="caracter">Es un evento oficial?</label>
           </div>
-          <div class="field col-12 md:col-3">
+          <div class="p-field p-col-12 p-md-3">
             <label for="type">Categoría Grupo</label>
             <Dropdown
               id="state"
@@ -30,8 +30,10 @@
               placeholder="Selecciona una Categoría"
             ></Dropdown>
           </div>
-          <div class="field col-12 md:col-3">
-            <Button label="Crear Grupo"></Button>
+          <div class="p-field p-col-12 p-md-6 center">
+            <div class="p-col-6">
+              <Button label="Crear Grupo"></Button>
+            </div>
           </div>
         </div>
       </div>
@@ -54,3 +56,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+</style>
