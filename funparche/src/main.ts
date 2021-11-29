@@ -19,9 +19,12 @@ import Card from 'primevue/card'
 import Toast from 'primevue/toast'
 import Accordion from 'primevue/accordion'
 import AccordionTab from 'primevue/accordiontab'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 const app = createApp(App)
 
+app.use(VueAxios, axios)
 app.use(PrimeVue)
 
 app.component('Steps', Steps)
