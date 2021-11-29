@@ -1,6 +1,8 @@
 <template>
   <div>
+    <!--
     <h1>Nuevo Evento</h1>
+    -->
     <!--
     <Steps :model="itemssteps" />
     -->

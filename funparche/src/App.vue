@@ -1,7 +1,9 @@
 <template>
   <div>
     <Toast />
-    <MegaMenu :model="items" />
+    <div class="mmenu">
+      <MegaMenu :model="items" class="mmenu" />
+    </div>
     <router-view />
   </div>
 </template>
@@ -53,5 +55,14 @@ export default {
 
 .dropdowns33 {
   width: 33%;
+}
+
+.nomargin {
+  margin: 0px;
+  padding: 0px;
+}
+
+.mmenu {
+  background: black;
 }
 </style>

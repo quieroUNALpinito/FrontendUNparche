@@ -11,10 +11,10 @@ module.exports = {
     }
   },
   devServer: {
-    disableHostCheck: true,
+    disableHostCheck: false,
     host: 'localhost',
-    port: 4000,
-    public: '0.0.0.0:4000',
+    port: 4300,
+    public: '0.0.0.0:4300',
     https: false
   },
   publicPath: '/'
