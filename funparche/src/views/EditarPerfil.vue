@@ -9,13 +9,14 @@
             <img :src="myavatar" width="100" height="100">
           </div>
           <div class="p-col-9">
-            <p>{{nombre}}</p>
-            <p>e-mail: {{correo}}</p>
+            <h3>{{nombre}}</h3>
+            <h4>{{correo}}</h4>
           </div>
         </div>
         <h3>DESCRIPCION</h3>
         <textarea rows="5" v-model="descripcion"></textarea><br>
-        <button @click="actualizarDesc">Actualizar</button>
+        <button @click="updatePerfilInfo">Actualizar</button>
+        <button @click="getPerfilInfo">obtener</button>
       </div>
     </div>
   </div>
@@ -34,7 +35,7 @@ export default {
       nombre: 'nombre por defecto',
       correo: 'pordefecto@unal.edu.co',
       descripcion: 'descripcion por defecto',
-      id: 1,
+      id: 2,
       myavatar: '../../img/elon.png'
     }
   },
@@ -42,8 +43,8 @@ export default {
     // vAvatar
   },
   methods: {
-    actualizarDesc () {
-      this.axios.post('http://localhost:8080/api/usuarios', {
+    updatePerfilInfo () {
+      this.axios.post('http://localhost:8080/api/usuarios/updatePerfilInfo', {
         id: this.id,
         descripcion: this.descripcion
       }).then((response) => {
@@ -51,7 +52,19 @@ export default {
       }).catch((error) => {
         console.warn(error)
       })
-      console.log(this.descripcion)
+    },
+    getPerfilInfo () {
+      this.axios.post('http://localhost:8080/api/usuarios/getPerfilInfo', {
+        id: 2
+      }).then((response) => {
+        console.log(response.data)
+        this.nombre = response.data.data[0].Nombres + ' ' + response.data.data[0].Apellidos
+        this.correo = response.data.data[0].Correo
+        this.descripcion = response.data.data[0].Descripcion
+        this.myavatar = response.data.data[0].Foto
+      }).catch((error) => {
+        console.warn(error)
+      })
     }
   }
 }
