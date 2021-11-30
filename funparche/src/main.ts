@@ -24,6 +24,7 @@ import InputSwitch from 'primevue/inputswitch'
 import Calendar from 'primevue/calendar'
 import InputNumber from 'primevue/inputnumber'
 import ToggleButton from 'primevue/togglebutton'
+import OrderList from 'primevue/orderlist'
 
 const app = createApp(App)
 
@@ -44,6 +45,7 @@ app.component('InputSwitch', InputSwitch)
 app.component('Calendar', Calendar)
 app.component('InputNumber', InputNumber)
 app.component('ToggleButton', ToggleButton)
+app.component('OrderList', OrderList)
 
 app.use(router)
 app.use(ToastService)
