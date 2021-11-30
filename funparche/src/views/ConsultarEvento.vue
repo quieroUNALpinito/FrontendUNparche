@@ -47,7 +47,7 @@
                 <span>{{slotProps.item.NombreUbicacion}} - {{slotProps.item.Hora}}</span>
            </div>
            <div class="logistic-event">
-             <span>Fecha: {{slotProps.item.Fecha.slice(0,10)}}</span>
+             <span>Fecha: {{slotProps.item.Hora}}</span>
              <span>Ubicación: {{slotProps.item.CoordenadasUbicación}}</span>
            </div>
         </div>
