@@ -43,8 +43,12 @@
 
 <script>
 import axios from 'axios'
+import { useToast } from 'primevue/usetoast'
 
 export default {
+  setup () {
+    const toast = useToast()
+  },
   data () {
     return {
       categorias: null,
@@ -83,7 +87,10 @@ export default {
           categoriaGrupo: this.categoria.ID
         })
         .then((response) => {
-          console.log(response.data.message)
+          this.$toast.add({
+            severity: response.data.status,
+            detail: response.data.message
+          })
         })
         .catch(function (error) {
           // handle error
