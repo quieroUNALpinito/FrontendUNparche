@@ -3,16 +3,10 @@
     <div class="p-col">
       <Button
         type="button"
-        label="Log In"
-        style="width: 20rem"
-        class="p-d-block p-mx-auto"
-      />
-      <p></p>
-      <Button
-        type="button"
         label="Sign In"
         style="width: 20rem"
         class="p-d-block p-mx-auto"
+        @click="doLogIn()"
       />
       <p></p>
       <InlineMessage
@@ -27,3 +21,44 @@
     </div>
   </div>
 </template>
+<script>
+import axios from 'axios'
+import { useRouter } from 'vue-router'
+export default {
+  data () {
+    return {
+      router: useRouter()
+    }
+  },
+  methods: {
+    doLogIn: async function () {
+      // llamada al backenda
+      try {
+        const googleUser = await this.$gAuth.signIn()
+        if (!googleUser) {
+          return null
+        }
+        const body = { id_token: googleUser.getAuthResponse().id_token }
+        axios
+          .post('http://localhost:8080/api/usuarios/google', body)
+          .then((response) => {
+            console.log(response.data)
+            localStorage.setItem('token', response.data.token)
+            localStorage.setItem('ID', response.data.ID)
+            this.router.push('landing')
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error)
+          })
+      } catch (error) {
+        // on fail do something
+        console.error(error)
+        return null
+      }
+
+      // App.changeLogIn()
+    }
+  }
+}
+</script>

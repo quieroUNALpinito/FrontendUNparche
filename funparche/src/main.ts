@@ -6,6 +6,7 @@ import 'primevue/resources/themes/vela-purple/theme.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 import 'primevue/resources/primevue.css'
+import gAuthPlugin from 'vue3-google-oauth2'
 
 import PrimeVue from 'primevue/config'
 import Menu from 'primevue/menu'
@@ -39,6 +40,14 @@ app.component('AccordionTab', AccordionTab)
 app.component('Message', Message)
 app.component('InlineMessage', InlineMessage)
 
+const gauthClientId =
+  '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'
+app.use(gAuthPlugin, {
+  clientId: gauthClientId,
+  scope: 'email',
+  prompt: 'consent',
+  fetch_basic_profile: false
+})
 app.use(router)
 app.use(ToastService)
 app.mount('#app')

@@ -12,7 +12,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: LogIn
   },
   {
     path: '/crearEvento',
@@ -48,9 +48,9 @@ const routes: Array<RouteRecordRaw> = [
     component: ConsultarEvento
   },
   {
-    path: '/LogIn',
-    name: 'LogIn',
-    component: LogIn
+    path: '/landing',
+    name: 'landing',
+    component: Home
   }
 ]
 
