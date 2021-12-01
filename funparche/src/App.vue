@@ -24,6 +24,7 @@ export default {
           icon: 'pi pi-search',
           to: '/consultarEvento'
         },
+        { label: 'Crear Grupo', icon: 'pi pi-search', to: '/crearGrupo' },
         { label: 'About', icon: 'pi pi-info', to: '/About' }
       ]
     }

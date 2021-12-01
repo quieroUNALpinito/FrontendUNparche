@@ -7,6 +7,8 @@ import crearEventoConfiguracion from '../components/crearEventoConfiguracion.vue
 import crearEventoUbicacion from '../components/crearEventoUbicacion.vue'
 import previewEvento from '../components/previewEvento.vue'
 import ConsultarEvento from '../views/ConsultarEvento.vue'
+import crearGrupo from '../views/crearGrupo.vue'
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -45,6 +47,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/consultarEvento',
     name: 'ConsultarEvento',
     component: ConsultarEvento
+  },
+  {
+    path: '/crearGrupo',
+    name: 'crearGrupo',
+    component: crearGrupo
   }
 ]
 

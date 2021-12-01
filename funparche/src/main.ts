@@ -6,6 +6,7 @@ import 'primevue/resources/themes/vela-purple/theme.css'
 import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 import 'primevue/resources/primevue.css'
+import './assets/styles/layout.scss'
 
 import PrimeVue from 'primevue/config'
 import Menu from 'primevue/menu'
@@ -25,6 +26,7 @@ import Calendar from 'primevue/calendar'
 import InputNumber from 'primevue/inputnumber'
 import ToggleButton from 'primevue/togglebutton'
 import OrderList from 'primevue/orderlist'
+import Checkbox from 'primevue/checkbox'
 
 const app = createApp(App)
 
@@ -46,6 +48,7 @@ app.component('Calendar', Calendar)
 app.component('InputNumber', InputNumber)
 app.component('ToggleButton', ToggleButton)
 app.component('OrderList', OrderList)
+app.component('Checkbox', Checkbox)
 
 app.use(router)
 app.use(ToastService)
