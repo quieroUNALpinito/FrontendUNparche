@@ -6,27 +6,27 @@
         <div class="p-fluid p-formgrid p-grid">
           <div class="p-field p-col-12 p-md-6">
             <label for="name">Nombre</label>
-            <InputText id="name" type="text" />
+            <InputText id="name" v-model="nombre" type="text" />
           </div>
           <div class="p-field p-col-12 p-md-6">
             <label for="grimage">Imagen del Grupo (URL)</label>
-            <InputText id="grimage" type="text" />
+            <InputText id="grimage" v-model="imagen" type="text" />
           </div>
           <div class="p-field p-col-12">
             <label for="description">Descripción</label>
-            <TextArea id="description" rows="4" />
+            <TextArea id="description" v-model="descripcion" rows="4" />
           </div>
           <div class="p-field-checkbox p-col-12 p-md-3">
-            <Checkbox name="oficial" value="Oficial" v-model="cities" />
+            <Checkbox name="oficial" value="Oficial" v-model="oficial" />
             <label for="caracter">Es un evento oficial?</label>
           </div>
           <div class="p-field p-col-12 p-md-3">
-            <label for="type">Categoría Grupo</label>
+            <label for="types">Categoría Grupo</label>
             <Dropdown
-              id="state"
-              v-model="dropdownItem"
-              :options="dropdownItems"
-              optionLabel="name"
+              id="types"
+              v-model="categoria"
+              :options="categorias"
+              optionLabel="Nombre"
               placeholder="Selecciona una Categoría"
             ></Dropdown>
           </div>
@@ -41,18 +41,31 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
+import axios from 'axios'
+
 export default {
   data () {
     return {
-      dropdownItems: [
-        { name: 'Option 1', code: 'Option 1' },
-        { name: 'Option 2', code: 'Option 2' },
-        { name: 'Option 3', code: 'Option 3' }
-      ],
-      dropdownItem: null,
-      cities: []
+      categorias: null
     }
+  },
+  methods: {
+    loadCategorias: function () {
+      console.log('cargando tipos de evento')
+      axios
+        .get('http://localhost:8080/api/eventos/tiposEvento')
+        .then((response) => {
+          this.categorias = response.data.data
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    }
+  },
+  mounted: function () {
+    this.loadCategorias()
   }
 }
 </script>
