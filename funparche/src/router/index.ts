@@ -8,12 +8,13 @@ import crearEventoUbicacion from '../components/crearEventoUbicacion.vue'
 import previewEvento from '../components/previewEvento.vue'
 import ConsultarEvento from '../views/ConsultarEvento.vue'
 import crearGrupo from '../views/crearGrupo.vue'
+import LogIn from '../views/LogIn.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'Home',
-    component: Home
+    component: LogIn
   },
   {
     path: '/crearEvento',
@@ -52,6 +53,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/crearGrupo',
     name: 'crearGrupo',
     component: crearGrupo
+  },
+  {
+    path: '/landing',
+    name: 'landing',
+    component: Home
   }
 ]
 

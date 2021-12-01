@@ -7,6 +7,7 @@ import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 import 'primevue/resources/primevue.css'
 import './assets/styles/layout.scss'
+import gAuthPlugin from 'vue3-google-oauth2'
 
 import PrimeVue from 'primevue/config'
 import Menu from 'primevue/menu'
@@ -27,6 +28,8 @@ import InputNumber from 'primevue/inputnumber'
 import ToggleButton from 'primevue/togglebutton'
 import OrderList from 'primevue/orderlist'
 import Checkbox from 'primevue/checkbox'
+import Message from 'primevue/message'
+import InlineMessage from 'primevue/inlinemessage'
 
 const app = createApp(App)
 
@@ -49,7 +52,17 @@ app.component('InputNumber', InputNumber)
 app.component('ToggleButton', ToggleButton)
 app.component('OrderList', OrderList)
 app.component('Checkbox', Checkbox)
+app.component('Message', Message)
+app.component('InlineMessage', InlineMessage)
 
+const gauthClientId =
+  '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'
+app.use(gAuthPlugin, {
+  clientId: gauthClientId,
+  scope: 'email',
+  prompt: 'consent',
+  fetch_basic_profile: false
+})
 app.use(router)
 app.use(ToastService)
 app.mount('#app')

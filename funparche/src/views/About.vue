@@ -10,3 +10,14 @@
     <li>Jorge Camilo Colmenares Santos</li>
   </div>
 </template>
+<script>
+import { onMounted } from '@vue/runtime-core'
+
+export default {
+  mounted: function () {
+    if (!localStorage.token) {
+      console.log('tenemos token!')
+    }
+  }
+}
+</script>
