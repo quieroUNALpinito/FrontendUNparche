@@ -17,11 +17,11 @@
             <div class="p-grid nested-grid p-dir-col">
               <div class="p-col">
                 <h3>DESCRIPCION</h3>
-                <textarea id="mytextarea" rows="5" v-model="descripcion"></textarea>
+                <TextArea id="mytextarea" rows="5" v-model="descripcion" class="textareas100"></TextArea>
               </div>
               <div class="p-grid p-justify-end">
                 <div class="p-col-4">
-                  <button id="mybutton" @click="updatePerfilInfo">Actualizar</button>
+                  <Button id="mybutton" @click="updatePerfilInfo">Actualizar</Button>
                   <!-- <button @click="getPerfilInfo">obtener</button> -->
                 </div>
               </div>
@@ -80,7 +80,7 @@ export default {
     }
   },
   mounted () {
-    // this.id = localStorage.ID
+    this.id = localStorage.ID
     this.$nextTick(this.getPerfilInfo)
   }
 }

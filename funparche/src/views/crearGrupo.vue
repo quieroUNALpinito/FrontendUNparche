@@ -18,7 +18,7 @@
           </div>
           <div class="p-field-checkbox p-col-12 p-md-3">
             <Checkbox name="oficial" value="Oficial" v-model="oficial" />
-            <label for="caracter">Es un evento oficial?</label>
+            <label for="caracter">Es un grupo oficial?</label>
           </div>
           <div class="p-field p-col-12 p-md-3">
             <label for="types">Categoría Grupo</label>
