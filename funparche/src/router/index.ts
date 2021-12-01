@@ -7,7 +7,7 @@ import crearEventoConfiguracion from '../components/crearEventoConfiguracion.vue
 import crearEventoUbicacion from '../components/crearEventoUbicacion.vue'
 import previewEvento from '../components/previewEvento.vue'
 import ConsultarEvento from '../views/ConsultarEvento.vue'
-import EditarPerfil from '@/views/EditarPerfil.vue'
+import Perfil from '@/views/Perfil.vue'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
@@ -48,9 +48,9 @@ const routes: Array<RouteRecordRaw> = [
     component: ConsultarEvento
   },
   {
-    path: '/editarPerfil',
+    path: '/Perfil',
     name: 'EditarPerfil',
-    component: EditarPerfil
+    component: Perfil
   }
 ]
 

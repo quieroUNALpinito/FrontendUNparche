@@ -1,22 +1,32 @@
 <template>
   <div class="card">
     <div class="p-grid nested-grid">
-      <div class="p-col-fixed" style="width:50px"></div>
-      <div class="p-col-3">
-        <h1>Editar Perfil</h1><hr>
-        <div class="p-grid p-justify-center">
-          <div class="p-col-3">
-            <img :src="myavatar" width="100" height="100">
+      <div class="p-col-fixed" style="width:35px"></div>
+      <div class="p-col">
+        <div class="p-col-11 p-md-8 p-lg-4">
+          <h1>Perfil</h1>
+          <div class="p-grid p-justify-start">
+            <div class="p-col-fixed" style="width:120px">
+              <img id="imgRound" :src="myavatar" width="100" height="100">
+            </div>
+            <div class="p-col">
+              <h3>{{nombre}}</h3>
+              <h4>{{correo}}</h4>
+            </div>
           </div>
-          <div class="p-col-9">
-            <h3>{{nombre}}</h3>
-            <h4>{{correo}}</h4>
-          </div>
+            <div class="p-grid nested-grid p-dir-col">
+              <div class="p-col">
+                <h3>DESCRIPCION</h3>
+                <textarea id="mytextarea" rows="5" v-model="descripcion"></textarea>
+              </div>
+              <div class="p-grid p-justify-end">
+                <div class="p-col-4">
+                  <button id="mybutton" @click="updatePerfilInfo">Actualizar</button>
+                  <!-- <button @click="getPerfilInfo">obtener</button> -->
+                </div>
+              </div>
+            </div>
         </div>
-        <h3>DESCRIPCION</h3>
-        <textarea rows="5" v-model="descripcion"></textarea><br>
-        <button @click="updatePerfilInfo">Actualizar</button>
-        <button @click="getPerfilInfo">obtener</button>
       </div>
     </div>
   </div>
@@ -35,7 +45,8 @@ export default {
       nombre: 'nombre por defecto',
       correo: 'pordefecto@unal.edu.co',
       descripcion: 'descripcion por defecto',
-      id: 2,
+      // id: localStorage.token.ID
+      id: 4,
       myavatar: '../../img/elon.png'
     }
   },
@@ -49,13 +60,14 @@ export default {
         descripcion: this.descripcion
       }).then((response) => {
         console.log(response.data)
+        this.getPerfilInfo()
       }).catch((error) => {
         console.warn(error)
       })
     },
     getPerfilInfo () {
       this.axios.post('http://localhost:8080/api/usuarios/getPerfilInfo', {
-        id: 2
+        id: this.id
       }).then((response) => {
         console.log(response.data)
         this.nombre = response.data.data[0].Nombres + ' ' + response.data.data[0].Apellidos
@@ -66,14 +78,19 @@ export default {
         console.warn(error)
       })
     }
+  },
+  mounted () {
+    // this.id = localStorage.ID
+    this.$nextTick(this.getPerfilInfo)
   }
 }
 
 </script>
 
 <style>
-textarea {
-    width: 500px;
+
+#mytextarea {
+    width: 100%;
     background-color: #1f2d40;
     border: solid 1px #777777;
     color: #e1e1e1;
@@ -81,12 +98,12 @@ textarea {
     padding-left: 4px;
 }
 
-img {
+#imgRound {
   border-radius: 50%;
   object-fit: cover;
 }
 
-button{
+#mybutton{
   background-color: #64B687;
   border-radius: 5px;
   border: 1px solid white;
@@ -95,9 +112,11 @@ button{
   margin: 0 5px;
   padding: 5px 15px;
   transition: 0.3s ease-in-out;
+  width: 100%;
 }
-button:hover {
+#mybutton:hover {
   background-color: #5aa67b;
   transition: 0.3s ease-in-out;
 }
+
 </style>
