@@ -33,6 +33,8 @@ import Message from 'primevue/message'
 import InlineMessage from 'primevue/inlinemessage'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Avatar from 'primevue/avatar'
+import Menubar from 'primevue/menubar'
 
 const app = createApp(App)
 
@@ -58,6 +60,8 @@ app.component('OrderList', OrderList)
 app.component('Checkbox', Checkbox)
 app.component('Message', Message)
 app.component('InlineMessage', InlineMessage)
+app.component('Avatar', Avatar)
+app.component('Menubar', Menubar)
 
 const gauthClientId =
   '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'

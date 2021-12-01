@@ -1,8 +1,25 @@
 <template>
   <div>
     <Toast />
-    <MegaMenu :model="items" v-if="this.path != '/' && this.path != ''" />
-    <router-view />
+    <Menubar :model="items" v-if="this.path != '/' && this.path != ''">
+      <template #start>
+        <img src="./assets/logo.svg" class="logoMenu" />
+      </template>
+      <template #end>
+        <Button
+          label="Logout"
+          icon="pi pi-power-off"
+          @click="this.doLogOut()"
+        />
+      </template>
+    </Menubar>
+    <div class="p-d-flex p-jc-center">
+      <Card class="cards">
+        <template #content>
+          <router-view />
+        </template>
+      </Card>
+    </div>
   </div>
 </template>
 
@@ -29,14 +46,7 @@ export default {
           to: '/consultarEvento'
         },
         { label: 'Crear Grupo', icon: 'pi pi-users', to: '/crearGrupo' },
-        { label: 'About', icon: 'pi pi-info', to: '/About' },
-        {
-          label: 'Log Out',
-          icon: 'pi pi-power-off',
-          command: () => {
-            this.doLogOut()
-          }
-        }
+        { label: 'About', icon: 'pi pi-info', to: '/About' }
       ]
     }
   },
@@ -83,5 +93,31 @@ export default {
 
 .mmenu {
   background: black;
+}
+
+.cards {
+  width: 70%;
+  margin: 2%;
+  padding: 1%;
+}
+
+.imgRound {
+  border-radius: 50%;
+  object-fit: cover;
+  width: 200px;
+  height: 200px;
+}
+
+.lista {
+  height: 100% !important;
+}
+
+.avatarCard {
+  background: #ba68c86e;
+}
+
+.logoMenu {
+  width: 50px;
+  height: 50px;
 }
 </style>

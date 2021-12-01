@@ -1,60 +1,92 @@
-
 <template>
-  <div>
-    <Card id="filtro">
-      <template #title>
-        <h2>Filters</h2>
-      </template>
-      <template #content>
-        <Accordion :multiple="true" :activeIndex="0">
+  <div class="lista">
+    <h1>Lista de eventos</h1>
+    <div class="p-grid">
+      <div class="p-col-3">
+        <h4>Filtros</h4>
+        <Accordion :multiple="false" :activeIndex="0">
           <AccordionTab>
             <template #header>
               <i class="pi pi-calendar"></i>
-              <h3>Date</h3>
+              <p>Date</p>
             </template>
             Content
           </AccordionTab>
           <AccordionTab>
             <template #header>
               <i class="pi pi-calendar"></i>
-              <h3>Time</h3>
+              <p>Time</p>
             </template>
             <span>Escoge la hora libre o el rango de tiempo libre.</span><br />
-            <InputText type="time" v-model="inicio" v-on:input="loadEventosByHour" />
-            <InputText type="time" v-model="fin"  v-on:input="loadEventosByHour" />
+            <InputText
+              type="time"
+              v-model="inicio"
+              v-on:input="loadEventosByHour"
+            />
+            <InputText
+              type="time"
+              v-model="fin"
+              v-on:input="loadEventosByHour"
+            />
           </AccordionTab>
           <AccordionTab>
-            <template #header >
+            <template #header>
               <i class="pi pi-calendar"></i>
-              <h3>Another filter</h3>
+              <p>Another filter</p>
             </template>
             Content
           </AccordionTab>
         </Accordion>
-      </template>
-    </Card>
-    <OrderList class="lista" v-model="lista" listStyle="height:auto" dataKey="vin"  >
-    <template id="titlel" #header  >
-        <h1>List of Events  </h1><p> {{rango}}</p>
-    </template>
-    <template #item="slotProps">
-        <div class="event-item">
-          <div class="image-container">
-            <img :src="slotProps.item.Imagen" >
-          </div>
-          <div class="detail-event">
-                <span><h5>{{slotProps.item.Nombre}}</h5></span>
-                <span>{{slotProps.item.NombreUbicacion}} - {{slotProps.item.Hora}}</span>
-           </div>
-           <div class="logistic-event">
-             <span>Fecha: {{slotProps.item.Hora}}</span>
-             <span>Ubicación: {{slotProps.item.CoordenadasUbicación}}</span>
-           </div>
-        </div>
-    </template>
-</OrderList>
+      </div>
+      <div class="p-col lista">
+        <OrderList
+          class="lista"
+          v-model="lista"
+          listStyle="height: max"
+          dataKey="vin"
+        >
+          <template #item="slotProps">
+            <div class="event-item">
+              <div class="image-container">
+                <img :src="slotProps.item.Imagen" />
+              </div>
+              <div class="detail-event">
+                <span
+                  ><h5>{{ slotProps.item.Nombre }}</h5></span
+                >
+                <span></span>
+              </div>
+              <div class="logistic-event">
+                <span
+                  >Fecha:
+                  {{ new Date(slotProps.item.Hora).toLocaleString() }}</span
+                >
+                <span>
+                  <p v-if="!slotProps.item.Presencial">Evento no presencial</p>
+                  <p
+                    v-if="
+                      slotProps.item.Presencial && slotProps.item.LugarOficial
+                    "
+                  >
+                    Ubicación:
+                    {{ slotProps.item.Edificio }} -
+                    {{ slotProps.item.NombreLOficial }}
+                  </p>
+                  <p
+                    v-if="
+                      slotProps.item.Presencial && !slotProps.item.LugarOficial
+                    "
+                  >
+                    Ubicación: {{ slotProps.item.NombreUbicacion }}
+                  </p>
+                </span>
+              </div>
+            </div>
+          </template>
+        </OrderList>
+      </div>
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -109,20 +141,22 @@ export default {
   width: 20%;
   float: left;
 }
-#titlel { display:inline;}
+#titlel {
+  display: inline;
+}
 
 ::v-global(.p-orderlist-controls) {
   background-color: black;
   visibility: hidden;
-  position: absolute,
+  position: absolute;
 }
-.event-item{
+.event-item {
   display: flex;
   align-items: center;
-  padding: .5rem;
+  padding: 0.5rem;
   width: 100%;
 
-  img{
+  img {
     width: 75px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     margin-right: 1rem;
@@ -135,7 +169,6 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    }
-
+  }
 }
 </style>
