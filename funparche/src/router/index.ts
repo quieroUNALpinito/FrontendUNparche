@@ -9,6 +9,7 @@ import previewEvento from '../components/previewEvento.vue'
 import ConsultarEvento from '../views/ConsultarEvento.vue'
 import crearGrupo from '../views/crearGrupo.vue'
 import LogIn from '../views/LogIn.vue'
+import Perfil from '@/views/Perfil.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -58,6 +59,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/landing',
     name: 'landing',
     component: Home
+  },
+  {
+    path: '/Perfil',
+    name: 'EditarPerfil',
+    component: Perfil
   }
 ]
 

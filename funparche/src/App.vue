@@ -17,6 +17,7 @@ export default {
       router: useRouter(),
       items: [
         { label: 'UNparche', to: '/landing', icon: '/assets/logo.png' },
+        { label: 'Perfil', to: '/Perfil', icon: 'pi pi-user' },
         {
           label: 'Crear Evento',
           icon: 'pi pi-calendar-plus',

@@ -7,6 +7,7 @@ import 'primeicons/primeicons.css'
 import 'primeflex/primeflex.css'
 import 'primevue/resources/primevue.css'
 import './assets/styles/layout.scss'
+
 import gAuthPlugin from 'vue3-google-oauth2'
 
 import PrimeVue from 'primevue/config'
@@ -30,9 +31,12 @@ import OrderList from 'primevue/orderlist'
 import Checkbox from 'primevue/checkbox'
 import Message from 'primevue/message'
 import InlineMessage from 'primevue/inlinemessage'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 const app = createApp(App)
 
+app.use(VueAxios, axios)
 app.use(PrimeVue)
 
 app.component('Steps', Steps)
