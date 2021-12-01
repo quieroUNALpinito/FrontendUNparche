@@ -32,7 +32,7 @@
           </div>
           <div class="p-field p-col-12 p-md-6 center">
             <div class="p-col-6">
-              <Button label="Crear Grupo"></Button>
+              <Button label="Crear Grupo" @click="loadGrupo"></Button>
             </div>
           </div>
         </div>
@@ -47,16 +47,43 @@ import axios from 'axios'
 export default {
   data () {
     return {
-      categorias: null
+      categorias: null,
+      nombre: '',
+      descripcion: '',
+      oficial: [],
+      categoria: null
     }
   },
   methods: {
     loadCategorias: function () {
-      console.log('cargando tipos de evento')
+      console.log('cargando categorias de grupo')
       axios
-        .get('http://localhost:8080/api/eventos/tiposEvento')
+        .get('http://localhost:8080/api/grupos/verGrupos')
         .then((response) => {
           this.categorias = response.data.data
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    },
+    loadGrupo: function () {
+      console.log('enviando grupo')
+      let isOficial = false
+      if (this.oficial[0]) {
+        isOficial = true
+      }
+      console.log(this.oficial)
+      console.log('asdfsadf')
+      axios
+        .post('http://localhost:8080/api/grupos/crearGrupo', {
+          nombre: this.nombre,
+          descripcion: this.descripcion,
+          oficial: isOficial,
+          categoriaGrupo: this.categoria.ID
+        })
+        .then((response) => {
+          console.log(response.data.message)
         })
         .catch(function (error) {
           // handle error
