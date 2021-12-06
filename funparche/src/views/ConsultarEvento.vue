@@ -32,6 +32,13 @@
           <AccordionTab>
             <template #header>
               <i class="pi pi-calendar"></i>
+              <p>type of Event</p>
+            </template>
+            tipos
+          </AccordionTab>
+          <AccordionTab>
+            <template #header>
+              <i class="pi pi-calendar"></i>
               <p>Another filter</p>
             </template>
             Content
@@ -96,14 +103,28 @@ export default {
     return {
       value_time: null,
       lista: [],
+      tiposEvento: [],
       inicio: '',
       fin: '24:00',
       rango: ''
     }
   },
   methods: {
-    loadEventos: function () {
+    loadTipos: function () {
       console.log('cargando tipos de evento')
+      axios
+        .get('http://localhost:8080/api/eventos/tiposEvento')
+        .then((response) => {
+          this.tiposEvento = response.data.data
+          console.log(this.tipoEvento)
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    },
+    loadEventos: function () {
+      console.log('cargando eventos')
       axios
         .get('http://localhost:8080/api/eventos/listarEventos')
         .then((response) => {
@@ -132,6 +153,7 @@ export default {
   },
   mounted: function () {
     this.loadEventos()
+    this.loadTipos()
   }
 }
 </script>
