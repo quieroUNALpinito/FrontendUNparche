@@ -35,6 +35,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Avatar from 'primevue/avatar'
 import Menubar from 'primevue/menubar'
+import Badge from 'primevue/badge'
+import BadgeDirective from 'primevue/badgedirective'
 
 const app = createApp(App)
 
@@ -62,6 +64,7 @@ app.component('Message', Message)
 app.component('InlineMessage', InlineMessage)
 app.component('Avatar', Avatar)
 app.component('Menubar', Menubar)
+app.component('Badge', Badge)
 
 const gauthClientId =
   '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'
@@ -69,8 +72,9 @@ app.use(gAuthPlugin, {
   clientId: gauthClientId,
   scope: 'email',
   prompt: 'consent',
-  fetch_basic_profile: false
+  fetch_basic_profile: true
 })
 app.use(router)
 app.use(ToastService)
+app.directive('badge', BadgeDirective)
 app.mount('#app')

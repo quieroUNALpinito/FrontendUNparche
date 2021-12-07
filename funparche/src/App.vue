@@ -6,9 +6,11 @@
         <img src="./assets/logo.svg" class="logoMenu" />
       </template>
       <template #end>
+        <i class="pi pi-bell p-mx-4" style="font-size: 2rem" v-badge="this.notifications" />
         <Button
           label="Logout"
           icon="pi pi-power-off"
+          class="p-mx-2"
           @click="this.doLogOut()"
         />
       </template>
@@ -32,6 +34,7 @@ export default {
       route: useRoute(),
       path: computed(() => this.route.path),
       router: useRouter(),
+      notifications: 0,
       items: [
         { label: 'UNparche', to: '/landing', icon: '/assets/logo.png' },
         { label: 'Perfil', to: '/Perfil', icon: 'pi pi-user' },
