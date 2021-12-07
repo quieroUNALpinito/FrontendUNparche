@@ -69,7 +69,7 @@ app.use(gAuthPlugin, {
   clientId: gauthClientId,
   scope: 'email',
   prompt: 'consent',
-  fetch_basic_profile: false
+  fetch_basic_profile: true
 })
 app.use(router)
 app.use(ToastService)

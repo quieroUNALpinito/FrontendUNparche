@@ -82,7 +82,8 @@ export default {
           nombre: this.nombre,
           descripcion: this.descripcion,
           oficial: isOficial,
-          categoriaGrupo: this.categoria.ID
+          categoriaGrupo: this.categoria.ID,
+          id_creador: localStorage.ID
         })
         .then((response) => {
           this.$toast.add({
