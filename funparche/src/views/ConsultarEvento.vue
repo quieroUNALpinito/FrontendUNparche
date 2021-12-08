@@ -44,6 +44,8 @@
           v-model="lista"
           listStyle="height: max"
           dataKey="vin"
+          v-model:selection="selection"
+          @selection-change="seleccionDeEvento(selection[0].ID)"
         >
           <template #item="slotProps">
             <div class="event-item">
@@ -87,10 +89,12 @@
       </div>
     </div>
   </div>
+  <verEvento  :idEvento="evento" ref="ver"></verEvento>
 </template>
 
 <script>
 import axios from 'axios'
+import verEvento from '../components/verEvento'
 export default {
   data () {
     return {
@@ -98,8 +102,13 @@ export default {
       lista: [],
       inicio: '',
       fin: '24:00',
-      rango: ''
+      rango: '',
+      display: false,
+      evento: null
     }
+  },
+  components: {
+    verEvento
   },
   methods: {
     loadEventos: function () {
@@ -128,6 +137,9 @@ export default {
           // handle error
           console.log(error)
         })
+    },
+    seleccionDeEvento: function (idEvento) {
+      this.$refs.ver.openWindow(idEvento)
     }
   },
   mounted: function () {
