@@ -31,10 +31,10 @@
           </AccordionTab>
           <AccordionTab>
             <template #header>
-              <i class="pi pi-calendar"></i>
-              <p>Another filter</p>
+              <i class="pi pi-map-marker"></i>
+              <p>Ubicación</p>
             </template>
-            Content
+            <UbicacionEvento />
           </AccordionTab>
         </Accordion>
       </div>
@@ -91,6 +91,8 @@
 
 <script>
 import axios from 'axios'
+import UbicacionEvento from '../components/UbicacionEvento'
+
 export default {
   data () {
     return {
@@ -100,6 +102,9 @@ export default {
       fin: '24:00',
       rango: ''
     }
+  },
+  components: {
+    UbicacionEvento
   },
   methods: {
     loadEventos: function () {
