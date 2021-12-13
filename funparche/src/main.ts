@@ -36,6 +36,7 @@ import VueAxios from 'vue-axios'
 import Avatar from 'primevue/avatar'
 import Menubar from 'primevue/menubar'
 import Dialog from 'primevue/dialog'
+import Image from 'primevue/image'
 
 const app = createApp(App)
 
@@ -64,6 +65,7 @@ app.component('InlineMessage', InlineMessage)
 app.component('Avatar', Avatar)
 app.component('Menubar', Menubar)
 app.component('Dialog', Dialog)
+app.component('Image', Image)
 
 const gauthClientId =
   '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'

@@ -89,7 +89,8 @@
       </div>
     </div>
   </div>
-  <verEvento  :idEvento="evento" ref="ver"></verEvento>
+  <verEvento  ref="ver"></verEvento>
+<circle-progress :percent="40" />
 </template>
 
 <script>
