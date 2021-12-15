@@ -24,6 +24,8 @@
 <script>
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import App from '../App.vue'
+import { watch } from '@vue/runtime-core'
 export default {
   data () {
     return {

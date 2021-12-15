@@ -37,6 +37,7 @@ import Avatar from 'primevue/avatar'
 import Menubar from 'primevue/menubar'
 import Badge from 'primevue/badge'
 import BadgeDirective from 'primevue/badgedirective'
+import OverlayPanel from 'primevue/overlaypanel'
 
 const app = createApp(App)
 
@@ -65,6 +66,7 @@ app.component('InlineMessage', InlineMessage)
 app.component('Avatar', Avatar)
 app.component('Menubar', Menubar)
 app.component('Badge', Badge)
+app.component('OverlayPanel', OverlayPanel)
 
 const gauthClientId =
   '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'

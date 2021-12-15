@@ -6,6 +6,7 @@ import ConsultarEvento from '../views/ConsultarEvento.vue'
 import crearGrupo from '../views/crearGrupo.vue'
 import LogIn from '../views/LogIn.vue'
 import Perfil from '@/views/Perfil.vue'
+import App from '@/App.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
