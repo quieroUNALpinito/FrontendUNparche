@@ -67,7 +67,7 @@
       <div class=cuenta v-else-if="dias>1">
       <circle-progress
         :on-viewport="cuenta()"
-        :percent="dias*100"
+        :percent="dias*10"
         :size="40"
         :border-width="15"
         :border-bg-width="15"
