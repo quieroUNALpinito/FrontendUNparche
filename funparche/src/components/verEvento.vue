@@ -51,18 +51,18 @@
       Creador: {{ evento.nombrecreador + ' ' + evento.apellidocreador }}
     </div>
 
-    <template #footer class=footer>
-      <div class=cuenta v-if="dias>10">
-      <circle-progress
-        :on-viewport="cuenta()"
-        :percent="2"
-        :size="40"
-        :border-width="15"
-        :border-bg-width="15"
-        empty-color=""
-        fill-color="#84BD00"
-      />
-      <p>faltan + de 10 dias</p>
+    <template #footer class="footer">
+      <div class="cuenta" v-if="dias > 10">
+        <circle-progress
+          :on-viewport="cuenta()"
+          :percent="2"
+          :size="40"
+          :border-width="15"
+          :border-bg-width="15"
+          empty-color=""
+          fill-color="#84BD00"
+        />
+        <p>faltan + de 10 dias</p>
       </div>
       <div class=cuenta v-else-if="dias>1">
       <circle-progress
@@ -76,29 +76,29 @@
       />
       <p>Faltan {{dias.toFixed(1)}} dias</p>
       </div>
-      <div class=cuenta v-else-if="dias>=0">
-      <circle-progress
-        :on-viewport="cuenta()"
-        :percent="100"
-        :size="40"
-        :border-width="15"
-        :border-bg-width="15"
-        empty-color=""
-        fill-color="#84BD00"
-      />
-      <p>Es hoy!</p>
+      <div class="cuenta" v-else-if="dias >= 0">
+        <circle-progress
+          :on-viewport="cuenta()"
+          :percent="100"
+          :size="40"
+          :border-width="15"
+          :border-bg-width="15"
+          empty-color=""
+          fill-color="#84BD00"
+        />
+        <p>Es hoy!</p>
       </div>
-      <div class=cuenta v-else>
-      <circle-progress
-        :on-viewport="cuenta()"
-        :percent="100"
-        :size="40"
-        :border-width="15"
-        :border-bg-width="15"
-        empty-color=""
-        fill-color="#84BD00"
-      />
-      <p>Este evento ya se realizó</p>
+      <div class="cuenta" v-else>
+        <circle-progress
+          :on-viewport="cuenta()"
+          :percent="100"
+          :size="40"
+          :border-width="15"
+          :border-bg-width="15"
+          empty-color=""
+          fill-color="#84BD00"
+        />
+        <p>Este evento ya se realizó</p>
       </div>
       <Button
         label="Quiero ir!"
@@ -133,8 +133,21 @@ export default {
       this.isVisible = true
     },
 
-    close () {
-      this.isVisible = false
+    close: async function () {
+      console.log(this.evento)
+      console.log(localStorage.ID)
+      axios
+        .post('http://localhost:8080/api/eventos/confirmarAsistenciaEvento', {
+          event: this.evento.ID,
+          user: localStorage.ID
+        })
+        .then((response) => {
+          this.$toast.add({
+            severity: response.data.status,
+            detail: response.data.message
+          })
+          this.isVisible = false
+        })
     },
 
     verEventoFunction: async function (idEvento) {
@@ -184,7 +197,7 @@ export default {
   flex-direction: row-reverse;
 }
 
-.cuenta{
-  float: left
+.cuenta {
+  float: left;
 }
 </style>
