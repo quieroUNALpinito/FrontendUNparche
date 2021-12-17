@@ -41,6 +41,9 @@ import Badge from 'primevue/badge'
 import BadgeDirective from 'primevue/badgedirective'
 import OverlayPanel from 'primevue/overlaypanel'
 import Fieldset from 'primevue/fieldset'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import ColumnGroup from 'primevue/columngroup'
 
 const app = createApp(App)
 
@@ -73,6 +76,9 @@ app.component('Image', Image)
 app.component('Badge', Badge)
 app.component('OverlayPanel', OverlayPanel)
 app.component('Fieldset', Fieldset)
+app.component('DataTable', DataTable)
+app.component('Column', Column)
+app.component('ColumnGroup', ColumnGroup)
 
 const gauthClientId =
   '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'

@@ -7,6 +7,7 @@ import crearGrupo from '../views/crearGrupo.vue'
 import LogIn from '../views/LogIn.vue'
 import Perfil from '@/views/Perfil.vue'
 import App from '@/App.vue'
+import Group from '../views/Group.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -43,6 +44,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/Perfil',
     name: 'EditarPerfil',
     component: Perfil
+  },
+  {
+    path: '/Group',
+    name: 'Group',
+    component: Group
   }
 ]
 

@@ -27,7 +27,8 @@ import { Options, Vue } from 'vue-class-component'
           items: [
             {
               label: 'Grupo 1',
-              icon: 'pi pi-user'
+              icon: 'pi pi-user',
+              to: 'views/Group'
             },
             {
               label: 'Grupo 2',
