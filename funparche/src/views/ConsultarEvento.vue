@@ -8,14 +8,14 @@
           <AccordionTab>
             <template #header>
               <i class="pi pi-calendar"></i>
-              <p>Date</p>
+              <p>&nbsp;Date</p>
             </template>
             Content
           </AccordionTab>
           <AccordionTab>
             <template #header>
-              <i class="pi pi-calendar"></i>
-              <p>Time</p>
+              <i class="pi pi-clock"></i>
+              <p>&nbsp;Time</p>
             </template>
             <span>Escoge la hora libre o el rango de tiempo libre.</span><br />
             <InputText
@@ -31,8 +31,19 @@
           </AccordionTab>
           <AccordionTab>
             <template #header>
+              <i class="pi pi-tags"></i>
+              <p>&nbsp;Event Type</p>
+            </template>
+            <div v-for="tipo of tiposEvento" :key="tipo.ID" class="p-field-checkbox">
+              <Checkbox :id="tipo.ID" name="tipo" :value="tipo" v-model="tiposEventoSeleccionados" v-on:input="loadEventosByType"/>
+              <label :for="tipo.ID">{{tipo.Nombre}}</label>
+            </div>
+            <!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+          </AccordionTab>
+          <AccordionTab>
+            <template #header>
               <i class="pi pi-calendar"></i>
-              <p>Another filter</p>
+              <p>&nbsp;Another filter</p>
             </template>
             Content
           </AccordionTab>
@@ -101,6 +112,8 @@ export default {
     return {
       value_time: null,
       lista: [],
+      tiposEvento: [],
+      tiposEventoSeleccionados: [],
       inicio: '',
       fin: '24:00',
       rango: '',
@@ -112,8 +125,20 @@ export default {
     verEvento
   },
   methods: {
-    loadEventos: function () {
+    loadTipos: function () {
       console.log('cargando tipos de evento')
+      axios
+        .get('http://localhost:8080/api/eventos/tiposEvento')
+        .then((response) => {
+          this.tiposEvento = response.data.data
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    },
+    loadEventos: function () {
+      console.log('cargando eventos')
       axios
         .get('http://localhost:8080/api/eventos/listarEventos')
         .then((response) => {
@@ -141,10 +166,28 @@ export default {
     },
     seleccionDeEvento: function (idEvento) {
       this.$refs.ver.openWindow(idEvento)
+    },
+    loadEventosByType: function () {
+      if (this.tiposEventoSeleccionados.length > 0) {
+        axios
+          .post('http://localhost:8080/api/eventos/listarEventosByType', {
+            tipos: this.tiposEventoSeleccionados
+          })
+          .then((response) => {
+            this.lista = response.data.data
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error)
+          })
+      } else {
+        console.log('vacio')
+      }
     }
   },
   mounted: function () {
     this.loadEventos()
+    this.loadTipos()
   }
 }
 </script>
