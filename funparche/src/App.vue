@@ -6,9 +6,26 @@
         <img src="./assets/logo.svg" class="logoMenu" />
       </template>
       <template #end>
+        <i
+          class="pi pi-bell p-mx-4"
+          style="font-size: 2rem"
+          @click="mostrarPanelNot($event)"
+        />
+        <OverlayPanel ref="panelNotif">
+          <Card>
+            <template #content>
+              <ul>
+                <li v-for="notif in notificationList" v-bind:key="notif">
+                  <p>{{ notif.Nombre }} en {{ notif.faltante }} días </p>
+                </li>
+              </ul>
+            </template>
+          </Card>
+        </OverlayPanel>
         <Button
           label="Logout"
           icon="pi pi-power-off"
+          class="p-mx-2"
           @click="this.doLogOut()"
         />
       </template>
@@ -26,12 +43,14 @@
 <script>
 import { computed } from '@vue/reactivity'
 import { useRoute, useRouter } from 'vue-router'
+import axios from 'axios'
 export default {
   data () {
     return {
       route: useRoute(),
       path: computed(() => this.route.path),
       router: useRouter(),
+      notificationList: [],
       items: [
         { label: 'UNparche', to: '/landing', icon: '/assets/logo.png' },
         { label: 'Perfil', to: '/Perfil', icon: 'pi pi-user' },
@@ -55,6 +74,31 @@ export default {
     doLogOut: function () {
       this.router.push('/')
       localStorage.clear()
+    },
+    mostrarPanelNot: function (event) {
+      this.getNotificaciones()
+      this.$refs.panelNotif.toggle(event)
+    },
+    getNotificaciones: function () {
+      axios
+        .post('http://localhost:8080/api/usuarios/getNotif', {
+          idUsuario: localStorage.ID
+        })
+        .then((response) => {
+          this.notificationList = response.data.data
+          for (const notif of this.notificationList) {
+            notif.faltante = this.timediff(notif.Hora)
+          }
+        })
+        .catch((error) => {
+          console.warn(error)
+        })
+    },
+    timediff: function (hora) {
+      const hoy = new Date()
+      const fecha = new Date(hora)
+      var diff = fecha - hoy
+      return Math.round(diff / (1000 * 60 * 60 * 24))
     }
   }
 }

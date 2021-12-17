@@ -37,6 +37,9 @@ import Avatar from 'primevue/avatar'
 import Menubar from 'primevue/menubar'
 import Dialog from 'primevue/dialog'
 import Image from 'primevue/image'
+import Badge from 'primevue/badge'
+import BadgeDirective from 'primevue/badgedirective'
+import OverlayPanel from 'primevue/overlaypanel'
 
 const app = createApp(App)
 
@@ -66,6 +69,8 @@ app.component('Avatar', Avatar)
 app.component('Menubar', Menubar)
 app.component('Dialog', Dialog)
 app.component('Image', Image)
+app.component('Badge', Badge)
+app.component('OverlayPanel', OverlayPanel)
 
 const gauthClientId =
   '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'
@@ -77,4 +82,5 @@ app.use(gAuthPlugin, {
 })
 app.use(router)
 app.use(ToastService)
+app.directive('badge', BadgeDirective)
 app.mount('#app')
