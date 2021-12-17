@@ -38,14 +38,13 @@
               <Checkbox :id="tipo.ID" name="tipo" :value="tipo" v-model="tiposEventoSeleccionados" v-on:input="loadEventosByType"/>
               <label :for="tipo.ID">{{tipo.Nombre}}</label>
             </div>
-            <!-- |||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||| -->
           </AccordionTab>
           <AccordionTab>
             <template #header>
-              <i class="pi pi-calendar"></i>
-              <p>&nbsp;Another filter</p>
+              <i class="pi pi-map-marker"></i>
+              <p>Ubicación</p>
             </template>
-            Content
+            <UbicacionEvento @search="loadEventosByLocation"/>
           </AccordionTab>
         </Accordion>
       </div>
@@ -107,6 +106,8 @@
 <script>
 import axios from 'axios'
 import verEvento from '../components/verEvento'
+import UbicacionEvento from '../components/UbicacionEvento'
+
 export default {
   data () {
     return {
@@ -122,7 +123,8 @@ export default {
     }
   },
   components: {
-    verEvento
+    verEvento,
+    UbicacionEvento
   },
   methods: {
     loadTipos: function () {
@@ -183,6 +185,19 @@ export default {
       } else {
         console.log('vacio')
       }
+    },
+    loadEventosByLocation: function (edificio) {
+      axios
+        .post('http://localhost:8080/api/eventos/listarEventosByLocation', {
+          edificio: edificio
+        })
+        .then((response) => {
+          this.lista = response.data.data
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
     }
   },
   mounted: function () {

@@ -40,6 +40,7 @@ import Image from 'primevue/image'
 import Badge from 'primevue/badge'
 import BadgeDirective from 'primevue/badgedirective'
 import OverlayPanel from 'primevue/overlaypanel'
+import Fieldset from 'primevue/fieldset'
 
 const app = createApp(App)
 
@@ -71,6 +72,7 @@ app.component('Dialog', Dialog)
 app.component('Image', Image)
 app.component('Badge', Badge)
 app.component('OverlayPanel', OverlayPanel)
+app.component('Fieldset', Fieldset)
 
 const gauthClientId =
   '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'
