@@ -35,6 +35,10 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Avatar from 'primevue/avatar'
 import Menubar from 'primevue/menubar'
+import DataTable from 'primevue/datatable'
+import Column from 'primevue/column'
+import ColumnGroup from 'primevue/columngroup'
+import Dialog from 'primevue/dialog'
 
 const app = createApp(App)
 
@@ -62,6 +66,10 @@ app.component('Message', Message)
 app.component('InlineMessage', InlineMessage)
 app.component('Avatar', Avatar)
 app.component('Menubar', Menubar)
+app.component('DataTable', DataTable)
+app.component('Column', Column)
+app.component('ColumnGroup', ColumnGroup)
+app.component('Dialog', Dialog)
 
 const gauthClientId =
   '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'
