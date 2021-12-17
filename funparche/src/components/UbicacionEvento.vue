@@ -2,18 +2,21 @@
   <div>
     <Button label="Ver Mapa" icon="pi pi-external-link" @click="openResponsive" />
     <Dialog header="Consultar Evento por Ubicación" v-model:visible="displayResponsive" :breakpoints="{'960px': '75vw'}" :style="{width: '50vw'}">
-      <Fieldset legend="Lugar">
+      <Fieldset :legend="edificio">
         <GoogleMap
           api-key="AIzaSyAZ2nx6WG9ZGb-ydvhlCdUarqVsOhGuCn4"
           style="width: 100%; height: 500px;"
           :center="center"
           :zoom="16"
         >
+          <div :key="ed.Edificio" v-for="ed in edificios">
+            <Marker @click="onMarkerClick(ed.Edificio)" :options="{position: { lat: ed.Coordenadas.x, lng: ed.Coordenadas.y}, title: ed.Edificio}"/>
+          </div>
         </GoogleMap>
       </Fieldset>
         <template #footer>
             <Button label="Cancelar" icon="pi pi-times" @click="closeResponsive" class="p-button-text"/>
-            <Button label="Buscar" icon="pi pi-search" @click="closeResponsive" autofocus />
+            <Button label="Buscar" icon="pi pi-search" @click="onSearch" autofocus />
         </template>
     </Dialog>
   </div>
@@ -22,32 +25,40 @@
 <script>
 import axios from 'axios'
 import { ref } from 'vue'
-import { GoogleMap } from 'vue3-google-map'
+import { GoogleMap, Marker } from 'vue3-google-map'
 
 export default {
   name: 'UbicacionEvento',
   data () {
     return {
-      edificios: [],
+      edificios: null,
       edificio: ''
     }
   },
   components: {
-    GoogleMap
+    GoogleMap,
+    Marker
   },
   methods: {
     loadEdificiosOficiales: function () {
       console.log('cargando edificios oficiales')
       axios
-        .get('http://localhost:8080/api/recursos/edificiosLugaresOficiales')
+        .get('http://localhost:8080/api/recursos/edificiosLugaresOfUbicacion')
         .then((response) => {
           this.edificios = response.data.data
-          console.log(this.edificios)
+          console.log(this.edificios, 'response')
         })
         .catch(function (error) {
           // handle error
           console.log(error)
         })
+    },
+    onMarkerClick: function (edificio) {
+      this.edificio = edificio
+    },
+    onSearch: function () {
+      this.$emit('search', this.edificio)
+      this.closeResponsive()
     }
   },
   setup () {
@@ -58,6 +69,7 @@ export default {
     }
     const closeResponsive = () => {
       displayResponsive.value = false
+      this.edificio = 'Selecciona un lugar'
     }
 
     const center = { lat: 4.6365772, lng: -74.0825521 }
@@ -71,6 +83,7 @@ export default {
   },
   mounted: function () {
     this.loadEdificiosOficiales()
+    this.edificio = 'Selecciona un lugar'
   }
 }
 </script>

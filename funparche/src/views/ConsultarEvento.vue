@@ -34,7 +34,7 @@
               <i class="pi pi-map-marker"></i>
               <p>Ubicación</p>
             </template>
-            <UbicacionEvento />
+            <UbicacionEvento @search="loadEventosByLocation"/>
           </AccordionTab>
         </Accordion>
       </div>
@@ -125,6 +125,19 @@ export default {
         .post('http://localhost:8080/api/eventos/listarEventosByHour', {
           inicio: this.inicio,
           fin: this.fin
+        })
+        .then((response) => {
+          this.lista = response.data.data
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    },
+    loadEventosByLocation: function (edificio) {
+      axios
+        .post('http://localhost:8080/api/eventos/listarEventosByLocation', {
+          edificio: edificio
         })
         .then((response) => {
           this.lista = response.data.data
