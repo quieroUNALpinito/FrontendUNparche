@@ -64,17 +64,17 @@
         />
         <p>faltan + de 10 dias</p>
       </div>
-      <div class=cuenta v-else-if="dias>1">
-      <circle-progress
-        :on-viewport="cuenta()"
-        :percent="dias*10"
-        :size="40"
-        :border-width="15"
-        :border-bg-width="15"
-        empty-color=""
-        fill-color="#84BD00"
-      />
-      <p>Faltan {{dias.toFixed(1)}} dias</p>
+      <div class="cuenta" v-else-if="dias > 1">
+        <circle-progress
+          :on-viewport="cuenta()"
+          :percent="dias * 10"
+          :size="40"
+          :border-width="15"
+          :border-bg-width="15"
+          empty-color=""
+          fill-color="#84BD00"
+        />
+        <p>Faltan {{ dias.toFixed(1) }} dias</p>
       </div>
       <div class="cuenta" v-else-if="dias >= 0">
         <circle-progress
@@ -100,12 +100,24 @@
         />
         <p>Este evento ya se realizó</p>
       </div>
-      <Button
-        label="Quiero ir!"
-        icon="pi pi-check"
-        autofocus
-        @click="close()"
-      />
+      <div>
+        <div v-if="!confirmado">
+          <Button
+            label="Quiero ir!"
+            icon="pi pi-check"
+            autofocus
+            @click="close()"
+          />
+        </div>
+        <div v-else>
+          <Button
+            label="Ya no quiero ir!"
+            icon="pi pi-times"
+            autofocus
+            @click="desconfirmar()"
+          />
+        </div>
+      </div>
     </template>
   </Dialog>
 </template>
@@ -121,7 +133,8 @@ export default {
     return {
       isVisible: false,
       evento: {},
-      dias: null
+      dias: null,
+      confirmado: false
     }
   },
   components: {
@@ -131,6 +144,7 @@ export default {
     async openWindow (idEvento) {
       await this.verEventoFunction(idEvento)
       this.isVisible = true
+      await this.confirmarAsistencia()
     },
 
     close: async function () {
@@ -169,6 +183,41 @@ export default {
       const fechaEvento = new Date(this.evento.Hora)
       const diff = fechaEvento - fechaActual
       this.dias = diff / (1000 * 60 * 60 * 24)
+    },
+    confirmarAsistencia: async function () {
+      await axios
+        .post(
+          'http://localhost:8080/api/eventos/consultarAsistenciaUsuarioEvento',
+          {
+            event: this.evento.ID,
+            user: localStorage.ID
+          }
+        )
+        .then((response) => {
+          this.confirmado = response.data.data[0]
+          console.log(this.confirmado)
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    },
+    desconfirmar: async function () {
+      await axios
+        .post(
+          'http://localhost:8080/api/eventos/desconfirmarAsistenciaEvento',
+          {
+            event: this.evento.ID,
+            user: localStorage.ID
+          }
+        )
+        .then((response) => {
+          this.isVisible = false
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
     }
   }
 }
