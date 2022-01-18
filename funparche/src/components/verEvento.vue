@@ -212,6 +212,10 @@ export default {
           }
         )
         .then((response) => {
+          this.$toast.add({
+            severity: response.data.status,
+            detail: response.data.message
+          })
           this.isVisible = false
         })
         .catch(function (error) {
