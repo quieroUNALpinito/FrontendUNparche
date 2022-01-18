@@ -4,7 +4,7 @@
     <Dialog header="Consultar Evento por Ubicación" v-model:visible="displayResponsive" :breakpoints="{'960px': '75vw'}" :style="{width: '50vw'}">
       <Fieldset :legend="edificio">
         <GoogleMap
-          api-key="AIzaSyAZ2nx6WG9ZGb-ydvhlCdUarqVsOhGuCn4"
+          :api-key="api_key"
           style="width: 100%; height: 500px;"
           :center="center"
           :zoom="16"
@@ -31,6 +31,7 @@ export default {
   name: 'UbicacionEvento',
   data () {
     return {
+      api_key: process.env.VUE_APP_MAP_KEY,
       edificios: null,
       edificio: ''
     }
@@ -82,6 +83,7 @@ export default {
     }
   },
   mounted: function () {
+    console.log('hola mundo')
     this.loadEdificiosOficiales()
     this.edificio = 'Selecciona un lugar'
   }
