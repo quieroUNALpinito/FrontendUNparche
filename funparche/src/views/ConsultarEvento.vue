@@ -10,7 +10,16 @@
               <i class="pi pi-calendar"></i>
               <p>&nbsp;Date</p>
             </template>
-            Content
+            <InputText
+              type="date"
+              v-model="dinicio"
+              v-on:input="loadEventosByDate"
+            />
+            <InputText
+              type="date"
+              v-model="dfin"
+              v-on:input="loadEventosByDate"
+            />
           </AccordionTab>
           <AccordionTab>
             <template #header>
@@ -117,6 +126,8 @@ export default {
       tiposEventoSeleccionados: [],
       inicio: '',
       fin: '24:00',
+      dinicio: '01-01-2000',
+      dfin: '01-01-2000',
       rango: '',
       display: false,
       evento: null
@@ -157,6 +168,21 @@ export default {
         .post('http://localhost:8080/api/eventos/listarEventosByHour', {
           inicio: this.inicio,
           fin: this.fin
+        })
+        .then((response) => {
+          this.lista = response.data.data
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    },
+    loadEventosByDate: function () {
+      this.rango = 'Between ' + this.inicio + ' to ' + this.fin
+      axios
+        .post('http://localhost:8080/api/eventos/listarEventosByDate', {
+          inicio: this.dinicio,
+          fin: this.dfin
         })
         .then((response) => {
           this.lista = response.data.data
