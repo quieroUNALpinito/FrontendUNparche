@@ -1,5 +1,6 @@
 <template>
-  <div class="p-grid">
+  <div class="p-grid p-m-4" >
+    <Panel></Panel>
     <div class="p-col-12">
       <h1>Crear grupo</h1>
       <div class="p-fluid p-formgrid p-grid">
@@ -42,8 +43,10 @@
 <script>
 import axios from 'axios'
 import { useToast } from 'primevue/usetoast'
+import Panel from '../views/Panel.vue'
 
 export default {
+  components: { Panel },
   setup () {
     const toast = useToast()
   },

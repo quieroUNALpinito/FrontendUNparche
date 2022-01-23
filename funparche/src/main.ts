@@ -44,6 +44,7 @@ import Fieldset from 'primevue/fieldset'
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import ColumnGroup from 'primevue/columngroup'
+import TabMenu from 'primevue/tabmenu'
 
 const app = createApp(App)
 
@@ -79,6 +80,7 @@ app.component('Fieldset', Fieldset)
 app.component('DataTable', DataTable)
 app.component('Column', Column)
 app.component('ColumnGroup', ColumnGroup)
+app.component('TabMenu', TabMenu)
 
 const gauthClientId =
   '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'

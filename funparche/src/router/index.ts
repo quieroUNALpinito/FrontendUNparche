@@ -8,6 +8,8 @@ import LogIn from '../views/LogIn.vue'
 import Perfil from '@/views/Perfil.vue'
 import App from '@/App.vue'
 import Group from '../views/Group.vue'
+import Panel from '@/views/Panel.vue'
+import BuscarGrupos from '@/views/BuscarGrupos.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -26,12 +28,17 @@ const routes: Array<RouteRecordRaw> = [
     component: About
   },
   {
+    path: '/panel/buscarGrupos',
+    name: 'buscarGrupos',
+    component: BuscarGrupos
+  },
+  {
     path: '/consultarEvento',
     name: 'ConsultarEvento',
     component: ConsultarEvento
   },
   {
-    path: '/crearGrupo',
+    path: '/panel/crearGrupo',
     name: 'crearGrupo',
     component: crearGrupo
   },
@@ -39,6 +46,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/landing',
     name: 'landing',
     component: Home
+  },
+  {
+    path: '/panel',
+    name: 'PanelUsuario',
+    component: Panel
   },
   {
     path: '/Perfil',
