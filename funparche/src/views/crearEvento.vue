@@ -89,6 +89,12 @@
         <div class="p-col">
           <div class="p-grid p-ai-center vertical-container">
             <div class="p-col">
+              <label>¿Evento privado?</label>
+            </div>
+            <div class="p-col">
+              <InputSwitch id="privacidad" v-model="privado" />
+            </div>
+            <div class="p-col">
               <label>¿Evento presencial?</label>
             </div>
             <div class="p-col">
@@ -179,7 +185,9 @@ export default {
       edificio: null,
       lugaroficial: null,
       recurrente: false,
-      nombreubicacion: ''
+      nombreubicacion: '',
+      privado: false,
+      usuario: localStorage.ID
     }
   },
   methods: {
@@ -221,6 +229,21 @@ export default {
           console.log(error)
         })
     },
+    clear: function () {
+      this.asunto = ''
+      this.descripcion = ''
+      this.tipoEvento = ''
+      this.fecha = ''
+      this.duracion = 1
+      this.presencial = false
+      this.bloficial = false
+      this.edificio = null
+      this.lugaroficial = null
+      this.recurrente = false
+      this.nombreubicacion = ''
+      this.privado = false
+      this.usuario = localStorage.ID
+    },
     siguiente: function () {
       console.log('enviando')
       axios
@@ -235,9 +258,12 @@ export default {
           edificio: this.edificio,
           lugaroficial: this.lugaroficial,
           recurrente: this.recurrente,
-          nombreubicacion: this.nombreubicacion
+          nombreubicacion: this.nombreubicacion,
+          privado: this.privado,
+          usuario: this.usuario
         })
         .then((response) => {
+          this.clear()
           this.$toast.add({
             severity: response.data.status,
             detail: response.data.message
