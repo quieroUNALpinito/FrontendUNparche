@@ -1,9 +1,10 @@
 <template>
-    <Menu :model="items" />
+  <Menu :model="items" />
 </template>
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component'
+import Home from '../views/Home.vue'
 
 @Options({
   data () {
@@ -14,11 +15,13 @@ import { Options, Vue } from 'vue-class-component'
           items: [
             {
               label: 'Crea un evento',
-              icon: 'pi pi-calendar-plus'
+              icon: 'pi pi-calendar-plus',
+              to: '/crearEvento'
             },
             {
               label: 'Busca un evento',
-              icon: 'pi pi-search'
+              icon: 'pi pi-search',
+              to: 'views/ConsultarEvento'
             }
           ]
         },
@@ -29,19 +32,14 @@ import { Options, Vue } from 'vue-class-component'
               label: 'Grupo 1',
               icon: 'pi pi-user',
               to: 'views/Group'
-            },
-            {
-              label: 'Grupo 2',
-              icon: 'pi pi-user'
-            },
-            {
-              label: 'Grupo 3',
-              icon: 'pi pi-user'
             }
           ]
         }
       ]
     }
+  },
+  components: {
+    Home
   }
 })
 export default class SideMenu extends Vue {}

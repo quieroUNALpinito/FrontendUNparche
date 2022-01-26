@@ -34,9 +34,19 @@
               <i class="pi pi-tags"></i>
               <p>&nbsp;Event Type</p>
             </template>
-            <div v-for="tipo of tiposEvento" :key="tipo.ID" class="p-field-checkbox">
-              <Checkbox :id="tipo.ID" name="tipo" :value="tipo" v-model="tiposEventoSeleccionados" v-on:input="loadEventosByType"/>
-              <label :for="tipo.ID">{{tipo.Nombre}}</label>
+            <div
+              v-for="tipo of tiposEvento"
+              :key="tipo.ID"
+              class="p-field-checkbox"
+            >
+              <Checkbox
+                :id="tipo.ID"
+                name="tipo"
+                :value="tipo"
+                v-model="tiposEventoSeleccionados"
+                v-on:input="loadEventosByType"
+              />
+              <label :for="tipo.ID">{{ tipo.Nombre }}</label>
             </div>
           </AccordionTab>
           <AccordionTab>
@@ -44,7 +54,19 @@
               <i class="pi pi-map-marker"></i>
               <p>Ubicación</p>
             </template>
-            <UbicacionEvento @search="loadEventosByLocation"/>
+            <UbicacionEvento @search="loadEventosByLocation" />
+          </AccordionTab>
+          <AccordionTab>
+            <template #header>
+              <i class="pi pi-calendar-times"></i>
+              <p> Eventos Anteriores</p>
+            </template>
+            <label for="anteriores"> ¿Ver eventos pasados?</label>
+            <InputSwitch
+              id="anteriores"
+              v-model="anteriores"
+              v-on:change="cargarAnteriores()"
+            />
           </AccordionTab>
         </Accordion>
       </div>
@@ -99,8 +121,8 @@
       </div>
     </div>
   </div>
-  <verEvento  ref="ver"></verEvento>
-<circle-progress :percent="40" />
+  <verEvento ref="ver"></verEvento>
+  <circle-progress :percent="40" />
 </template>
 
 <script>
@@ -119,7 +141,8 @@ export default {
       fin: '24:00',
       rango: '',
       display: false,
-      evento: null
+      evento: null,
+      anteriores: false
     }
   },
   components: {
@@ -198,6 +221,24 @@ export default {
           // handle error
           console.log(error)
         })
+    },
+    cargarAnteriores: function () {
+      console.log('cargando eventos')
+      if (this.anteriores) {
+        axios
+          .post('http://localhost:8080/api/eventos/listarEventosAnteriores', {
+            id: localStorage.ID
+          })
+          .then((response) => {
+            this.lista = response.data.data
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error)
+          })
+      } else {
+        this.loadEventos()
+      }
     }
   },
   mounted: function () {
