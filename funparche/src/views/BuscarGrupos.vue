@@ -94,6 +94,25 @@ export default {
           console.log(error)
         })
     },
+
+    buscarPorNombre: function () {
+      console.log(`nombre: ${this.nombreGrupo}`)
+      axios
+        .post('http://localhost:8080/api/grupos/buscarGruposPorNombre', {
+          nombreGrupo: this.nombreGrupo,
+          id_user: this.ID
+        })
+        .then((response) => {
+          // console.log(response.data)
+          this.respuestaNombreGrupo = response.data
+          // this.respuesta.Oficial = this.respuesta.Oficial ? 'Si' : ' No'
+          console.log(this.respuestaNombreGrupo)
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    },
     async onRowSelect (event) {
       await axios
         .post('http://localhost:8080/api/grupos/verificarSolicitud', {
