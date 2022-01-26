@@ -128,6 +128,15 @@
       />
       </div>
     </template>
+    <div>
+      <Panel header="Asistentes" :toggleable="true" :collapsed="true">
+        <ul id="asistencia">
+          <li v-for="asistente in this.asistentes" :key="asistente.ID">
+            <p>{{asistente.Nombres}} {{asistente.Apellidos}}</p>
+          </li>
+        </ul>
+      </Panel>
+    </div>
   </Dialog>
   <editarEvento ref="editar"></editarEvento>
 </template>
@@ -146,7 +155,8 @@ export default {
       evento: {},
       dias: null,
       confirmado: false,
-      id: 0
+      id: 0,
+      asistentes: []
     }
   },
   components: {
@@ -159,6 +169,7 @@ export default {
       this.id = localStorage.ID
       this.isVisible = true
       await this.confirmarAsistencia()
+      await this.consultarAsistentes()
     },
 
     close: async function () {
@@ -177,7 +188,6 @@ export default {
           this.isVisible = false
         })
     },
-
     verEventoFunction: async function (idEvento) {
       await axios
         .post('http://localhost:8080/api/eventos/verEvento', {
@@ -209,7 +219,23 @@ export default {
         )
         .then((response) => {
           this.confirmado = response.data.data[0]
-          console.log(this.confirmado)
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    },
+    consultarAsistentes: async function () {
+      await axios
+        .post(
+          'http://localhost:8080/api/eventos/consultarAsistentesEvento',
+          {
+            event: this.evento.ID,
+            user: localStorage.ID
+          }
+        )
+        .then((response) => {
+          this.asistentes = response.data.data
         })
         .catch(function (error) {
           // handle error
