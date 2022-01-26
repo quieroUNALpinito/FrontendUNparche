@@ -86,7 +86,7 @@
               <i class="pi pi-calendar-times"></i>
               <p> Eventos Anteriores</p>
             </template>
-            <label for="anteriores"> ¿Ver eventos pasados?</label>
+            <label for="anteriores"> ¿Ver eventos a los que asistí?</label>
             <InputSwitch
               id="anteriores"
               v-model="anteriores"
