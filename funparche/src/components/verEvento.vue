@@ -116,23 +116,29 @@
             autofocus
             @click="desconfirmar()"
           />
+          <label for="notificaciones"> ¿Quieres notificaciones?</label>
+          <InputSwitch
+            id="notificaciones"
+            v-model="notificaciones"
+            v-on:change="cambiarNotificaciones()"
+          />
         </div>
       </div>
       <div>
-      <Button
-        v-if="evento.ID_creador == id"
-        label="Editar"
-        icon="pi pi-user-edit"
-        autofocus
-        @click="seleccionEdit(evento.ID)"
-      />
+        <Button
+          v-if="evento.ID_creador == id"
+          label="Editar"
+          icon="pi pi-user-edit"
+          autofocus
+          @click="seleccionEdit(evento.ID)"
+        />
       </div>
     </template>
     <div>
       <Panel header="Asistentes" :toggleable="true" :collapsed="true">
         <ul id="asistencia">
           <li v-for="asistente in this.asistentes" :key="asistente.ID">
-            <p>{{asistente.Nombres}} {{asistente.Apellidos}}</p>
+            <p>{{ asistente.Nombres }} {{ asistente.Apellidos }}</p>
           </li>
         </ul>
       </Panel>
@@ -156,7 +162,8 @@ export default {
       dias: null,
       confirmado: false,
       id: 0,
-      asistentes: []
+      asistentes: [],
+      notificaciones: true
     }
   },
   components: {
@@ -227,13 +234,10 @@ export default {
     },
     consultarAsistentes: async function () {
       await axios
-        .post(
-          'http://localhost:8080/api/eventos/consultarAsistentesEvento',
-          {
-            event: this.evento.ID,
-            user: localStorage.ID
-          }
-        )
+        .post('http://localhost:8080/api/eventos/consultarAsistentesEvento', {
+          event: this.evento.ID,
+          user: localStorage.ID
+        })
         .then((response) => {
           this.asistentes = response.data.data
         })
@@ -257,6 +261,24 @@ export default {
             detail: response.data.message
           })
           this.isVisible = false
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    },
+    cambiarNotificaciones: function () {
+      axios
+        .post('http://localhost:8080/api/eventos/actualizarNotificaciones', {
+          evento: this.evento.ID,
+          usuario: localStorage.ID,
+          notificaciones: this.notificaciones
+        })
+        .then((response) => {
+          this.$toast.add({
+            severity: response.data.status,
+            detail: response.data.message
+          })
         })
         .catch(function (error) {
           // handle error
