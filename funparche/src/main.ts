@@ -46,6 +46,8 @@ import Column from 'primevue/column'
 import ColumnGroup from 'primevue/columngroup'
 import TabMenu from 'primevue/tabmenu'
 import Panel from 'primevue/panel'
+import ConfirmDialog from 'primevue/confirmdialog'
+import ConfirmationService from 'primevue/confirmationservice'
 
 const app = createApp(App)
 
@@ -83,7 +85,9 @@ app.component('Column', Column)
 app.component('ColumnGroup', ColumnGroup)
 app.component('TabMenu', TabMenu)
 app.component('Panel', Panel)
+app.component('ConfirmDialog', ConfirmDialog)
 
+app.use(ConfirmationService)
 const gauthClientId =
   '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'
 app.use(gAuthPlugin, {

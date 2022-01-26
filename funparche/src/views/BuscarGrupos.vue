@@ -20,7 +20,16 @@
     </div>
   </div>
   <div class="p-m-4">
-    <DataTable v-if="respuesta.length > 0" :value="respuesta">
+    <DataTable
+      v-if="respuesta.length > 0"
+      :value="respuesta"
+      v-model:selection="seleccionado"
+      selectionMode="single"
+      label="confirm"
+      @rowSelect="onRowSelect"
+      @rowUnselect="onRowUnselect"
+      responsiveLayout="scroll"
+    >
       <Column field="NombreGrupo" header="Nombre del Grupo"></Column>
       <Column field="Descripcion" header="Descripcion"></Column>
       <Column field="Oficial" header="Grupo Oficial"></Column>
@@ -60,6 +69,7 @@
       Lo sentimos no se encontro ningun grupo con el nombre indicado
     </h4>
   </div>
+  <ConfirmDialog></ConfirmDialog>
 </template>
 
 <script>
@@ -77,7 +87,10 @@ export default {
       ID: '',
       respuesta: [1],
       nombreGrupo: '',
-      respuestaNombreGrupo: [1]
+      respuestaNombreGrupo: [1],
+      seleccionado: null,
+      id_grupo: null,
+      solicitud: null
     }
   },
   methods: {
@@ -112,6 +125,7 @@ export default {
           console.log(error)
         })
     },
+
     buscarPorNombre: function () {
       console.log(`nombre: ${this.nombreGrupo}`)
       axios
@@ -129,6 +143,77 @@ export default {
           // handle error
           console.log(error)
         })
+    },
+    async onRowSelect (event) {
+      await axios
+        .post('http://localhost:8080/api/grupos/verificarSolicitud', {
+          id_grupo: this.seleccionado.ID,
+          id_user: this.ID
+        })
+        .then((response) => {
+          // console.log(response.data)
+          this.solicitud = response.data
+          // this.respuesta.Oficial = this.respuesta.Oficial ? 'Si' : ' No'
+          console.log(this.solicitud)
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+      if (this.solicitud.data.length === 0) {
+        this.$confirm.require({
+          message: 'Quieres unirte a ' + event.data.NombreGrupo + ' ?',
+          header: 'Confirmation',
+          icon: 'pi pi-exclamation-triangle',
+          acceptLabel: 'Enviar solicitud',
+          accept: () => {
+            this.enviarSolicitud(event)
+            this.solicitud = null
+          },
+          reject: () => {
+            this.solicitud = null
+          }
+        })
+      } else {
+        this.$confirm.require({
+          message: 'Ya enviaste tu solicitud',
+          header: 'Confirmation',
+          icon: 'pi pi-exclamation-triangle',
+          acceptLabel: 'Ok',
+          accept: () => {
+            this.solicitud = null
+          },
+          reject: () => {
+            this.solicitud = null
+          }
+        })
+      }
+    },
+    enviarSolicitud: async function (event) {
+      await axios
+        .post('http://localhost:8080/api/grupos/solicitarMembresia', {
+          id_grupo: this.seleccionado.ID,
+          id_user: this.ID
+        })
+        .then((response) => {
+          this.$toast.add({
+            severity: response.data.status,
+            detail: response.data.message
+          })
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+      this.buscar()
+    },
+    onRowUnselect (event) {
+      this.$toast.add({
+        severity: 'warn',
+        summary: 'Product Unselected',
+        detail: 'Name: ' + event.data.NombreGrupo,
+        life: 3000
+      })
     }
   },
   mounted: function () {
