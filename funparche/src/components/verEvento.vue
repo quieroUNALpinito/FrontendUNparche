@@ -118,14 +118,25 @@
           />
         </div>
       </div>
+      <div>
+      <Button
+        v-if="evento.ID_creador == id"
+        label="Editar"
+        icon="pi pi-user-edit"
+        autofocus
+        @click="seleccionEdit(evento.ID)"
+      />
+      </div>
     </template>
   </Dialog>
+  <editarEvento ref="editar"></editarEvento>
 </template>
 
 <script>
 import axios from 'axios'
 import 'vue3-circle-progress/dist/circle-progress.css'
 import CircleProgress from 'vue3-circle-progress'
+import editarEvento from '../components/editarEvento'
 export default {
   name: 'verEvento',
 
@@ -134,15 +145,18 @@ export default {
       isVisible: false,
       evento: {},
       dias: null,
-      confirmado: false
+      confirmado: false,
+      id: 0
     }
   },
   components: {
+    editarEvento,
     CircleProgress
   },
   methods: {
     async openWindow (idEvento) {
       await this.verEventoFunction(idEvento)
+      this.id = localStorage.ID
       this.isVisible = true
       await this.confirmarAsistencia()
     },
@@ -222,6 +236,15 @@ export default {
           // handle error
           console.log(error)
         })
+    },
+    seleccionEdit: function (idEvento) {
+      this.$refs.editar.openWindow(this.evento)
+    },
+    async cargarActualizacion (idEvento) {
+      await this.verEventoFunction(idEvento)
+      this.id = localStorage.ID
+      this.$parent.loadEventos()
+      this.isVisible = true
     }
   }
 }
