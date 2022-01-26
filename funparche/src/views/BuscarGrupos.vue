@@ -20,7 +20,15 @@
     </div>
   </div>
   <div class="p-m-4">
-    <DataTable v-if="respuesta.length > 0" :value="respuesta">
+    <DataTable
+      v-if="respuesta.length > 0"
+      :value="respuesta"
+      v-model:selection="seleccionado"
+      selectionMode="single"
+      @rowSelect="onRowSelect"
+      @rowUnselect="onRowUnselect"
+      responsiveLayout="scroll"
+    >
       <Column field="NombreGrupo" header="Nombre del Grupo"></Column>
       <Column field="Descripcion" header="Descripcion"></Column>
       <Column field="Oficial" header="Grupo Oficial"></Column>
@@ -46,7 +54,8 @@ export default {
       oficial: [],
       categoria: null,
       ID: '',
-      respuesta: [1]
+      respuesta: [1],
+      seleccionado: null
     }
   },
   methods: {
@@ -80,6 +89,22 @@ export default {
           // handle error
           console.log(error)
         })
+    },
+    onRowSelect (event) {
+      this.$toast.add({
+        severity: 'info',
+        summary: 'Product Selected',
+        detail: 'Name: ' + event.data.NombreGrupo,
+        life: 3000
+      })
+    },
+    onRowUnselect (event) {
+      this.$toast.add({
+        severity: 'warn',
+        summary: 'Product Unselected',
+        detail: 'Name: ' + event.data.NombreGrupo,
+        life: 3000
+      })
     }
   },
   mounted: function () {
