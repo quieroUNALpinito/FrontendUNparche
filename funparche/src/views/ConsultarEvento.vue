@@ -143,7 +143,7 @@ export default {
       inicio: '',
       fin: '24:00',
       dinicio: '01-01-2000',
-      dfin: '01-01-2000',
+      dfin: '01-01-3000',
       rango: '',
       display: false,
       evento: null,
