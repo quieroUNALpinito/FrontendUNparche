@@ -345,7 +345,6 @@ export default {
           duracion: this.duracion,
           presencial: this.presencial,
           bloficial: this.bloficial,
-          edificio: this.edificio,
           lugaroficial: this.lugaroficial,
           recurrente: this.recurrente,
           nombreubicacion: this.nombreubicacion
