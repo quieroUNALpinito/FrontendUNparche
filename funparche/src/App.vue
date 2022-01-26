@@ -65,7 +65,6 @@ export default {
           to: '/consultarEvento'
         },
         { label: 'Panel', icon: 'pi pi-bars', to: '/panel' },
-        { label: 'Crear Grupo', icon: 'pi pi-users', to: '/crearGrupo' },
         { label: 'About', icon: 'pi pi-info', to: '/About' }
       ]
     }
