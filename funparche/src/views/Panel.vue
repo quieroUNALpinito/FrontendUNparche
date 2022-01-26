@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Panel</h1>
+    <h1>Panel de Grupos</h1>
     <TabMenu :model="items" />
   </div>
 </template>
