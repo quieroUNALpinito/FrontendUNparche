@@ -4,8 +4,13 @@
     <div class="p-grid">
       <div class="p-col-3">
         <h4>Filtros</h4>
-        <p>Eventos públicos/privados&nbsp;</p><InputSwitch id="privacidad" v-model="privado" v-on:input="clear"/>
         <Accordion :multiple="false" :activeIndex="0">
+          <AccordionTab>
+            <template #header>
+              <p>Privacidad</p>
+            </template>
+            <p>Eventos privados?&nbsp;</p><InputSwitch id="privacidad" v-model="privado" v-on:input="clear"/>
+          </AccordionTab>
           <AccordionTab>
             <template #header>
               <i class="pi pi-calendar"></i>
