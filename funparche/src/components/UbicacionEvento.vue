@@ -4,7 +4,7 @@
     <Dialog header="Consultar Evento por Ubicación" v-model:visible="displayResponsive" :breakpoints="{'960px': '75vw'}" :style="{width: '50vw'}">
       <Fieldset :legend="edificio">
         <GoogleMap
-          api-key=process.ENV.api-key
+          :api-key="api_key"
           style="width: 100%; height: 500px;"
           :center="center"
           :zoom="16"
@@ -32,7 +32,8 @@ export default {
   data () {
     return {
       edificios: null,
-      edificio: ''
+      edificio: '',
+      api_key: process.env.VUE_APP_MAP_KEY
     }
   },
   components: {

@@ -7,15 +7,21 @@
         <Accordion :multiple="false" :activeIndex="0">
           <AccordionTab>
             <template #header>
+              <p>Privacidad</p>
+            </template>
+            <p>Eventos privados?&nbsp;</p><InputSwitch id="privacidad" v-model="privado" v-on:input="clear"/>
+          </AccordionTab>
+          <AccordionTab>
+            <template #header>
               <i class="pi pi-calendar"></i>
-              <p>&nbsp;Date</p>
+              <p>&nbsp;Fecha</p>
             </template>
             Content
           </AccordionTab>
           <AccordionTab>
             <template #header>
               <i class="pi pi-clock"></i>
-              <p>&nbsp;Time</p>
+              <p>&nbsp;Hora</p>
             </template>
             <span>Escoge la hora libre o el rango de tiempo libre.</span><br />
             <InputText
@@ -32,7 +38,7 @@
           <AccordionTab>
             <template #header>
               <i class="pi pi-tags"></i>
-              <p>&nbsp;Event Type</p>
+              <p>&nbsp;Tipo de Evento</p>
             </template>
             <div v-for="tipo of tiposEvento" :key="tipo.ID" class="p-field-checkbox">
               <Checkbox :id="tipo.ID" name="tipo" :value="tipo" v-model="tiposEventoSeleccionados" v-on:input="loadEventosByType"/>
@@ -41,8 +47,18 @@
           </AccordionTab>
           <AccordionTab>
             <template #header>
+              <i class="pi pi-users"></i>
+              <p>&nbsp;Mis Grupos</p>
+            </template>
+            <div v-for="grupo of grupos" :key="grupo.ID" class="p-field-checkbox">
+              <Checkbox :id="grupo.ID" name="grupo" :value="grupo" v-model="gruposSeleccionados" v-on:input="loadEventosByGroup"/>
+              <label :for="grupo.ID">{{grupo.Nombre}}</label>
+            </div>
+          </AccordionTab>
+          <AccordionTab>
+            <template #header>
               <i class="pi pi-map-marker"></i>
-              <p>Ubicación</p>
+              <p>&nbsp;Ubicación</p>
             </template>
             <UbicacionEvento @search="loadEventosByLocation"/>
           </AccordionTab>
@@ -119,7 +135,11 @@ export default {
       fin: '24:00',
       rango: '',
       display: false,
-      evento: null
+      evento: null,
+      privado: false,
+      usuario: localStorage.ID,
+      grupos: [],
+      gruposSeleccionados: []
     }
   },
   components: {
@@ -127,6 +147,20 @@ export default {
     UbicacionEvento
   },
   methods: {
+    clear: function () {
+      this.value_time = null
+      this.lista = []
+      this.tiposEventoSeleccionados = []
+      this.gruposSeleccionados = []
+      this.inicio = ''
+      this.fin = '24:00'
+      this.rango = ''
+      this.display = false
+      this.evento = null
+      this.usuario = localStorage.ID
+      this.loadEventos()
+      this.loadGrupos()
+    },
     loadTipos: function () {
       console.log('cargando tipos de evento')
       axios
@@ -139,10 +173,28 @@ export default {
           console.log(error)
         })
     },
+    loadGrupos: function () {
+      console.log('cargando grupos a los que pertenece el usuario autenticado')
+      axios
+        .post('http://localhost:8080/api/eventos/gruposDeUsuario', {
+          usuario: this.usuario
+        })
+        .then((response) => {
+          this.grupos = response.data.data
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    },
     loadEventos: function () {
       console.log('cargando eventos')
       axios
-        .get('http://localhost:8080/api/eventos/listarEventos')
+        .post('http://localhost:8080/api/eventos/listarEventos', {
+          usuario: this.usuario,
+          privado: this.privado,
+          grupos: this.grupos
+        })
         .then((response) => {
           this.lista = response.data.data
         })
@@ -156,7 +208,10 @@ export default {
       axios
         .post('http://localhost:8080/api/eventos/listarEventosByHour', {
           inicio: this.inicio,
-          fin: this.fin
+          fin: this.fin,
+          usuario: this.usuario,
+          privado: this.privado,
+          grupos: this.grupos
         })
         .then((response) => {
           this.lista = response.data.data
@@ -173,7 +228,30 @@ export default {
       if (this.tiposEventoSeleccionados.length > 0) {
         axios
           .post('http://localhost:8080/api/eventos/listarEventosByType', {
-            tipos: this.tiposEventoSeleccionados
+            tipos: this.tiposEventoSeleccionados,
+            usuario: this.usuario,
+            privado: this.privado,
+            grupos: this.grupos
+          })
+          .then((response) => {
+            this.lista = response.data.data
+          })
+          .catch(function (error) {
+            // handle error
+            console.log(error)
+          })
+      } else {
+        console.log('vacio')
+      }
+    },
+    loadEventosByGroup: function () {
+      if (this.gruposSeleccionados.length > 0) {
+        axios
+          .post('http://localhost:8080/api/eventos/listarEventosByGroup', {
+            gruposSeleccionados: this.gruposSeleccionados,
+            usuario: this.usuario,
+            privado: this.privado,
+            grupos: this.grupos
           })
           .then((response) => {
             this.lista = response.data.data
@@ -189,7 +267,10 @@ export default {
     loadEventosByLocation: function (edificio) {
       axios
         .post('http://localhost:8080/api/eventos/listarEventosByLocation', {
-          edificio: edificio
+          edificio: edificio,
+          usuario: this.usuario,
+          privado: this.privado,
+          grupos: this.grupos
         })
         .then((response) => {
           this.lista = response.data.data
@@ -201,8 +282,9 @@ export default {
     }
   },
   mounted: function () {
-    this.loadEventos()
+    this.loadGrupos()
     this.loadTipos()
+    this.loadEventos()
   }
 }
 </script>
