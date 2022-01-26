@@ -25,6 +25,7 @@
       :value="respuesta"
       v-model:selection="seleccionado"
       selectionMode="single"
+      label="confirm"
       @rowSelect="onRowSelect"
       @rowUnselect="onRowUnselect"
       responsiveLayout="scroll"
@@ -39,6 +40,7 @@
       Lo sentimos no se encontro ningun grupo por este tipo de categoria
     </h4>
   </div>
+  <ConfirmDialog></ConfirmDialog>
 </template>
 
 <script>
@@ -55,7 +57,9 @@ export default {
       categoria: null,
       ID: '',
       respuesta: [1],
-      seleccionado: null
+      seleccionado: null,
+      id_grupo: null,
+      solicitud: null
     }
   },
   methods: {
@@ -90,13 +94,68 @@ export default {
           console.log(error)
         })
     },
-    onRowSelect (event) {
-      this.$toast.add({
-        severity: 'info',
-        summary: 'Product Selected',
-        detail: 'Name: ' + event.data.NombreGrupo,
-        life: 3000
-      })
+    async onRowSelect (event) {
+      await axios
+        .post('http://localhost:8080/api/grupos/verificarSolicitud', {
+          id_grupo: this.seleccionado.ID,
+          id_user: this.ID
+        })
+        .then((response) => {
+          // console.log(response.data)
+          this.solicitud = response.data
+          // this.respuesta.Oficial = this.respuesta.Oficial ? 'Si' : ' No'
+          console.log(this.solicitud)
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+      if (this.solicitud.data.length === 0) {
+        this.$confirm.require({
+          message: 'Quieres unirte a ' + event.data.NombreGrupo + ' ?',
+          header: 'Confirmation',
+          icon: 'pi pi-exclamation-triangle',
+          acceptLabel: 'Enviar solicitud',
+          accept: () => {
+            this.enviarSolicitud(event)
+            this.solicitud = null
+          },
+          reject: () => {
+            this.solicitud = null
+          }
+        })
+      } else {
+        this.$confirm.require({
+          message: 'Ya enviaste tu solicitud',
+          header: 'Confirmation',
+          icon: 'pi pi-exclamation-triangle',
+          acceptLabel: 'Ok',
+          accept: () => {
+            this.solicitud = null
+          },
+          reject: () => {
+            this.solicitud = null
+          }
+        })
+      }
+    },
+    enviarSolicitud: async function (event) {
+      await axios
+        .post('http://localhost:8080/api/grupos/solicitarMembresia', {
+          id_grupo: this.seleccionado.ID,
+          id_user: this.ID
+        })
+        .then((response) => {
+          this.$toast.add({
+            severity: response.data.status,
+            detail: response.data.message
+          })
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+      this.buscar()
     },
     onRowUnselect (event) {
       this.$toast.add({
