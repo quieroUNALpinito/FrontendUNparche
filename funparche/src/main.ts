@@ -46,6 +46,7 @@ import Column from 'primevue/column'
 import ColumnGroup from 'primevue/columngroup'
 import TabMenu from 'primevue/tabmenu'
 import Panel from 'primevue/panel'
+import SelectButton from 'primevue/selectbutton'
 
 const app = createApp(App)
 
@@ -83,6 +84,7 @@ app.component('Column', Column)
 app.component('ColumnGroup', ColumnGroup)
 app.component('TabMenu', TabMenu)
 app.component('Panel', Panel)
+app.component('SelectButton', SelectButton)
 
 const gauthClientId =
   '832086360772-parslg4nd9jl5shdoats8rhucep5tmfv.apps.googleusercontent.com'
