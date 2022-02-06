@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Panel</h1>
+    <h1>Panel de Grupos</h1>
     <TabMenu :model="items" />
   </div>
 </template>
@@ -15,7 +15,8 @@ export default {
           to: '/panel/buscarGrupos'
         },
         { label: 'Crear Grupo', icon: 'pi pi-pencil', to: '/panel/crearGrupo' },
-        { label: 'Administrar Grupos', icon: 'pi pi-cog' }
+        { label: 'Mis Grupos', icon: 'pi pi-user-edit', to: '/panel/misGrupos' },
+        { label: 'Mis Solicitudes', icon: 'pi pi-user-plus', to: '/panel/misSolicitudes' }
       ]
     }
   }

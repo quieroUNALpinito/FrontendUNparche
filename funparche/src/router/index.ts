@@ -10,6 +10,8 @@ import App from '@/App.vue'
 import Group from '../views/Group.vue'
 import Panel from '@/views/Panel.vue'
 import BuscarGrupos from '@/views/BuscarGrupos.vue'
+import MisGrupos from '../views/MisGrupos.vue'
+import MisSolicitudes from '../views/MisSolicitudes.vue'
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -41,6 +43,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/panel/crearGrupo',
     name: 'crearGrupo',
     component: crearGrupo
+  },
+  {
+    path: '/panel/misGrupos',
+    name: 'misGrupos',
+    component: MisGrupos
+  },
+  {
+    path: '/panel/misSolicitudes',
+    name: 'misSolicitudes',
+    component: MisSolicitudes
   },
   {
     path: '/landing',

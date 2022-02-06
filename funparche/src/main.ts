@@ -48,6 +48,7 @@ import TabMenu from 'primevue/tabmenu'
 import Panel from 'primevue/panel'
 import ConfirmDialog from 'primevue/confirmdialog'
 import ConfirmationService from 'primevue/confirmationservice'
+import SelectButton from 'primevue/selectbutton'
 
 const app = createApp(App)
 
@@ -86,6 +87,7 @@ app.component('ColumnGroup', ColumnGroup)
 app.component('TabMenu', TabMenu)
 app.component('Panel', Panel)
 app.component('ConfirmDialog', ConfirmDialog)
+app.component('SelectButton', SelectButton)
 
 app.use(ConfirmationService)
 const gauthClientId =

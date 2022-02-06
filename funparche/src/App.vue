@@ -64,7 +64,7 @@ export default {
           icon: 'pi pi-search',
           to: '/consultarEvento'
         },
-        { label: 'Grupos', icon: 'pi pi-bars', to: '/panel' },
+        { label: 'Grupos', icon: 'pi pi-users', to: '/panel/buscarGrupos' },
         { label: 'About', icon: 'pi pi-info', to: '/About' }
       ]
     }
