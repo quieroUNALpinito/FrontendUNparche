@@ -7,7 +7,7 @@
       </div>
     </div>
   </div>
-  <div class="p-m-4">
+  <div class="p-m-4" v-if="reload">
     <DataTable v-if="respuesta.length > 0" :value="respuesta">
       <Column field="Nombres" header="Nombres"></Column>
       <Column field="Apellidos" header="Apellidos"></Column>
@@ -46,7 +46,10 @@ export default {
   data () {
     return {
       ID: '',
-      respuesta: [1]
+      permiso: 0,
+      detail: '',
+      respuesta: [1],
+      reload: true
     }
   },
   methods: {
@@ -68,32 +71,31 @@ export default {
         })
     },
     respSolicitud: function (data, res) {
-      console.log(data)
-    },
-    saveGroup: function () {
-      if (!this.categoria) {
-        this.$toast.add({ severity: 'warn', summary: 'Categoría del grupo', detail: 'Selecciona una categoría', life: 3000 })
+      if (res) {
+        this.permiso = 2
+        this.detail = 'Solicitud aprovada'
       } else {
-        this.group.NombreGrupo = this.NombreGrupo
-        this.group.Descripcion = this.Descripcion
-        this.group.Privado = this.Privado
-        this.group.NombreCategoria = this.categoria.Nombre
-        axios
-          .post('http://localhost:8080/api/grupos/updateGrupos', {
-            group: this.group,
-            categoria: this.categoria.ID
-          })
-          .then((response) => {
-            this.$toast.add({ severity: 'success', summary: 'Grupo Modificado', detail: 'Tu grupo se actualizó', life: 3000 })
-            this.loadGrupos()
-          })
-          .catch(function (error) {
-            this.$toast.add({ severity: 'error', summary: 'Error', detail: 'No se ha podido modificar el grupo', life: 3000 })
-            console.log(error)
-          })
+        this.permiso = 4
+        this.detail = 'Solicitud rechazada'
       }
-      this.loadGrupos()
-      this.hideDialog()
+      axios
+        .post('http://localhost:8080/api/grupos/updatePermiso', {
+          grupo: data.IDgrupo,
+          usuario: data.ID,
+          permiso: this.permiso
+        })
+        .then((response) => {
+          this.$toast.add({ severity: 'success', summary: 'Solicitud Revisada', detail: this.detail, life: 3000 })
+          this.loadSolicitudes()
+        })
+        .catch(function (error) {
+          this.$toast.add({ severity: 'error', summary: 'Error', detail: 'No se ha podido modificar el grupo', life: 3000 })
+          console.log(error)
+        })
+      this.reload = false
+      this.$nextTick(() => {
+        this.reload = true
+      })
     }
   },
   mounted: function () {
