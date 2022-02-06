@@ -15,7 +15,8 @@ export default {
           to: '/panel/buscarGrupos'
         },
         { label: 'Crear Grupo', icon: 'pi pi-pencil', to: '/panel/crearGrupo' },
-        { label: 'Mis Grupos', icon: 'pi pi-user-plus', to: '/panel/misGrupos' }
+        { label: 'Mis Grupos', icon: 'pi pi-user-edit', to: '/panel/misGrupos' },
+        { label: 'Mis Solicitudes', icon: 'pi pi-user-plus', to: '/panel/misSolicitudes' }
       ]
     }
   }
