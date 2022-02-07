@@ -21,6 +21,11 @@
             class="p-button-rounded p-button-success mr-2"
             @click="editGrupo(slotProps.data)"
           />
+          <Button
+            icon="pi pi-users"
+            class="p-button-rounded p-button-success mr-2"
+            @click="mostrarMiembros(slotProps.data)"
+          />
         </template>
       </Column>
     </DataTable>
@@ -36,7 +41,11 @@
       :modal="true"
       class="p-fluid"
     >
-      <img src="https://i.picsum.photos/id/985/200/100.jpg?hmac=9wEJ-NV4ZYprH59mmRRU9bdXg602j-nnci2K4WZUkvQ" :alt="group.NombreGrupo" class="group-image"/>
+      <img
+        src="https://i.picsum.photos/id/985/200/100.jpg?hmac=9wEJ-NV4ZYprH59mmRRU9bdXg602j-nnci2K4WZUkvQ"
+        :alt="group.NombreGrupo"
+        class="group-image"
+      />
       <div class="field p-mt-3">
         <label for="name">Nombre</label>
         <InputText
@@ -73,7 +82,7 @@
 
       <div class="p-mt-3">
         <label for="types">Privacidad del Grupo</label>
-        <SelectButton v-model="Privado" :options="privacidad"/>
+        <SelectButton v-model="Privado" :options="privacidad" />
       </div>
 
       <template #footer>
@@ -91,6 +100,7 @@
         />
       </template>
     </Dialog>
+    <Group ref="miembros"></Group>
   </div>
 </template>
 
@@ -100,9 +110,10 @@ import axios from 'axios'
 import { ref, onMounted } from 'vue'
 import { FilterMatchMode } from 'primevue/api'
 import { useToast } from 'primevue/usetoast'
+import Group from './Group.vue'
 
 export default {
-  components: { Panel },
+  components: { Panel, Group },
   data () {
     return {
       categoria: null,
@@ -161,7 +172,12 @@ export default {
     },
     saveGroup: function () {
       if (!this.categoria) {
-        this.$toast.add({ severity: 'warn', summary: 'Categoría del grupo', detail: 'Selecciona una categoría', life: 3000 })
+        this.$toast.add({
+          severity: 'warn',
+          summary: 'Categoría del grupo',
+          detail: 'Selecciona una categoría',
+          life: 3000
+        })
       } else {
         this.group.NombreGrupo = this.NombreGrupo
         this.group.Descripcion = this.Descripcion
@@ -173,16 +189,29 @@ export default {
             categoria: this.categoria.ID
           })
           .then((response) => {
-            this.$toast.add({ severity: 'success', summary: 'Grupo Modificado', detail: 'Tu grupo se actualizó', life: 3000 })
+            this.$toast.add({
+              severity: 'success',
+              summary: 'Grupo Modificado',
+              detail: 'Tu grupo se actualizó',
+              life: 3000
+            })
             this.loadGrupos()
           })
           .catch(function (error) {
-            this.$toast.add({ severity: 'error', summary: 'Error', detail: 'No se ha podido modificar el grupo', life: 3000 })
+            this.$toast.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'No se ha podido modificar el grupo',
+              life: 3000
+            })
             console.log(error)
           })
       }
       this.loadGrupos()
       this.hideDialog()
+    },
+    mostrarMiembros: function (idGrupo) {
+      this.$refs.miembros.openWindow(idGrupo.ID)
     }
   },
   mounted: function () {

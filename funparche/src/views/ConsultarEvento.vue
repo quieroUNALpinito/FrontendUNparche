@@ -9,7 +9,8 @@
             <template #header>
               <p>Privacidad</p>
             </template>
-            <p>Eventos privados?&nbsp;</p><InputSwitch id="privacidad" v-model="privado" v-on:input="clear"/>
+            <p>Eventos privados?&nbsp;</p>
+            <InputSwitch id="privacidad" v-model="privado" v-on:input="clear" />
           </AccordionTab>
           <AccordionTab>
             <template #header>
@@ -69,9 +70,19 @@
               <i class="pi pi-users"></i>
               <p>&nbsp;Mis Grupos</p>
             </template>
-            <div v-for="grupo of grupos" :key="grupo.ID" class="p-field-checkbox">
-              <Checkbox :id="grupo.ID" name="grupo" :value="grupo" v-model="gruposSeleccionados" v-on:input="loadEventosByGroup"/>
-              <label :for="grupo.ID">{{grupo.Nombre}}</label>
+            <div
+              v-for="grupo of grupos"
+              :key="grupo.ID"
+              class="p-field-checkbox"
+            >
+              <Checkbox
+                :id="grupo.ID"
+                name="grupo"
+                :value="grupo"
+                v-model="gruposSeleccionados"
+                v-on:input="loadEventosByGroup"
+              />
+              <label :for="grupo.ID">{{ grupo.NombreGrupo }}</label>
             </div>
           </AccordionTab>
           <AccordionTab>
@@ -84,7 +95,7 @@
           <AccordionTab>
             <template #header>
               <i class="pi pi-calendar-times"></i>
-              <p> Eventos Anteriores</p>
+              <p>Eventos Anteriores</p>
             </template>
             <label for="anteriores"> ¿Ver eventos a los que asistí?</label>
             <InputSwitch
@@ -209,12 +220,26 @@ export default {
     },
     loadGrupos: function () {
       console.log('cargando grupos a los que pertenece el usuario autenticado')
+      /*
       axios
         .post('http://localhost:8080/api/eventos/gruposDeUsuario', {
           usuario: this.usuario
         })
         .then((response) => {
           this.grupos = response.data.data
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+        */
+      axios
+        .post('http://localhost:8080/api/grupos/buscarMisGrupos', {
+          id_user: this.usuario
+        })
+        .then((response) => {
+          this.grupos = response.data
+          console.log(response.data)
         })
         .catch(function (error) {
           // handle error

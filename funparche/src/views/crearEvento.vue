@@ -42,12 +42,39 @@
         <div class="p-col">
           <div class="p-grid p-ai-center vertical-container">
             <div class="p-col">
-              <label>¿Evento recurrente?</label>
+              <label>¿Evento privado?</label>
             </div>
             <div class="p-col">
-              <InputSwitch id="recurrente" v-model="recurrente" />
+              <InputSwitch id="privacidad" v-model="privado" />
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-m-4">
+      <div class="p-grid">
+        <div class="p-col">
+          <div class="p-grid p-ai-center vertical-container">
+            <div class="p-col">
+              <label>¿Evento de grupo?</label>
+            </div>
+            <div class="p-col">
+              <InputSwitch id="eventoGrupo" v-model="eventoGrupo" />
+            </div>
+          </div>
+        </div>
+        <div class="p-col">
+          <span class="p-float-label">
+            <Dropdown
+              id="grupo"
+              v-model="grupo"
+              class="dropdowns100"
+              :options="misGrupos"
+              optionLabel="NombreGrupo"
+              v-if="this.eventoGrupo"
+            />
+            <label for="duracion" v-if="this.eventoGrupo">Grupo</label>
+          </span>
         </div>
       </div>
     </div>
@@ -88,12 +115,6 @@
       <div class="p-grid">
         <div class="p-col">
           <div class="p-grid p-ai-center vertical-container">
-            <div class="p-col">
-              <label>¿Evento privado?</label>
-            </div>
-            <div class="p-col">
-              <InputSwitch id="privacidad" v-model="privado" />
-            </div>
             <div class="p-col">
               <label>¿Evento presencial?</label>
             </div>
@@ -187,7 +208,10 @@ export default {
       recurrente: false,
       nombreubicacion: '',
       privado: false,
-      usuario: localStorage.ID
+      usuario: localStorage.ID,
+      eventoGrupo: false,
+      misGrupos: null,
+      grupo: null
     }
   },
   methods: {
@@ -204,7 +228,6 @@ export default {
         })
     },
     loadEdificiosOficiales: function () {
-      console.log('cargando edificios oficiales')
       axios
         .get('http://localhost:8080/api/recursos/edificiosLugaresOficiales')
         .then((response) => {
@@ -215,8 +238,21 @@ export default {
           console.log(error)
         })
     },
+    loadMisGrupos: function () {
+      axios
+        .post('http://localhost:8080/api/grupos/buscarMisGrupos', {
+          id_user: this.usuario
+        })
+        .then((response) => {
+          this.misGrupos = response.data
+          console.log(response.data)
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error)
+        })
+    },
     loadLugaresDeEdificio: function (event) {
-      console.log('cargando lugares del edificio')
       axios
         .post('http://localhost:8080/api/recursos/lugarPorEdificio', {
           edificio: event.value.Edificio
@@ -260,7 +296,9 @@ export default {
           recurrente: this.recurrente,
           nombreubicacion: this.nombreubicacion,
           privado: this.privado,
-          usuario: this.usuario
+          usuario: this.usuario,
+          grupo: this.grupo,
+          eventogrupo: this.eventoGrupo
         })
         .then((response) => {
           this.clear()
@@ -274,6 +312,7 @@ export default {
   mounted: function () {
     this.loadTiposEvento()
     this.loadEdificiosOficiales()
+    this.loadMisGrupos()
   }
 }
 </script>
